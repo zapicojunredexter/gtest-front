@@ -12,9 +12,6 @@ class Component extends React.PureComponent<> {
                     <Link to="/">Home</Link>
                     </li>
                     <li>
-                    <Link to="/login">Login</Link>
-                    </li>
-                    <li>
                     <Link to="/bookings">Bookings</Link>
                     </li>
                     <li>
@@ -27,7 +24,7 @@ class Component extends React.PureComponent<> {
                     <Link to="/trips">Trips</Link>
                     </li>
                     <li>
-                    <Link to="/users">Users</Link>
+                    <Link to="/commuters">Commuters</Link>
                     </li>
                     <li>
                     <Link to="/vehicles">Vehicles</Link>
