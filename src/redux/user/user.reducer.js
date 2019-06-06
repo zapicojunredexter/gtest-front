@@ -1,7 +1,7 @@
 import { SET_IS_LOGGED_IN, SET_IS_LOGGED_OUT } from './user.action';
 
 const initialState = {
-    isLoggedIn: false,
+    isLoggedIn: true,
 };
 export default (state = initialState, action) => {
     switch (action.type) {
