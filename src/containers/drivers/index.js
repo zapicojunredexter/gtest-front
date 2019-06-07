@@ -14,11 +14,13 @@ class Container extends React.PureComponent<> {
     }
 
     componentDidMount () {
-        this.props.fetchDrivers();
+        // this.props.fetchDrivers();
     }
 
     handleAddDriver = () => {
-        this.props.addDriver(this.state);
+        this.props.addDriver(this.state)
+            .then(this.props.fetchDrivers)
+            .catch(err => alert(err.message));
     }
     render() {
         return (
@@ -26,7 +28,7 @@ class Container extends React.PureComponent<> {
                 src/containers/drivers/index.js
 
                 <br /><br /><br /><br /><br /><br />
-                <br /><input onChange={event => this.setState({ email: event.target.value})} placeholder="emal" value={this.state.email} type="text" />
+                <br /><input type="email" onChange={event => this.setState({ email: event.target.value})} placeholder="emal" value={this.state.email} type="email" />
                 <br /><input onChange={event => this.setState({ password: event.target.value})} placeholder="password" value={this.state.password} type="text" />
                 <br /><input onChange={event => this.setState({ firstName: event.target.value})} placeholder="firstname" value={this.state.firstName} type="text" />
                 <br /><input onChange={event => this.setState({ lastName: event.target.value})} placeholder="lastname" value={this.state.lastName} type="text" />
@@ -34,6 +36,10 @@ class Container extends React.PureComponent<> {
                 <br /><input onChange={event => this.setState({ contactNumber: event.target.value})} placeholder="contact number" value={this.state.contactNumber} type="text" />
                 <br /><input onChange={event => this.setState({ gender: event.target.value})} placeholder="" value={this.state.gender} type="text" />
                 <br /><button onClick={this.handleAddDriver}>SUBMIT</button>
+
+                <ul>
+                    {this.props.drivers.map(data => <li>{JSON.stringify(data)}</li>)}
+                </ul>
             </div>
         );
     }
@@ -41,6 +47,7 @@ class Container extends React.PureComponent<> {
 
 
 const mapStateToProps = state => ({
+    drivers: state.driverStore.drivers,
 });
 
 const mapDispatchToProps = dispatch => ({

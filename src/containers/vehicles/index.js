@@ -4,11 +4,27 @@ import VehicleService from '../../redux/vehicles/vehicle.service';
 class Container extends React.PureComponent<> {
     state = {
         plateNumber: '',
-        seats: [],
+        seats: {
+            'seat-1' : {
+                sample: true,
+            },
+            'seat-2' : {
+                sample: true,
+            },
+            'seat-3' : {
+                sample: true,
+            }
+        },
+    }
+
+    componentDidMount(){
+        this.props.fetchVehicles();
     }
 
     handleAddVehicle = () => {
-        this.props.addVehicle(this.state);
+        this.props.addVehicle(this.state)
+            .then(this.props.fetchVehicles)
+            .catch(err => alert(err.message));
     }
     render() {
         return (
@@ -17,8 +33,11 @@ class Container extends React.PureComponent<> {
 
                 <br /><br /><br /><br /><br /><br />
                 <input placeholder="plate number" value={this.state.plateNumber} onChange={event => this.setState({ plateNumber:event.target.value})} />
-                <input placeholder="seats" value={this.state.seats} onChange={event => this.setState({ seats:event.target.value})} />
+                <input disabled placeholder="seats" value={this.state.seats} onChange={event => this.setState({ seats:event.target.value})} />
                 <button onClick={this.handleAddVehicle}>ADD</button>
+                <ul>
+                    {this.props.vehicles.map(data => <li>{JSON.stringify(data)}</li>)}
+                </ul>
             </div>
         );
     }
@@ -26,6 +45,7 @@ class Container extends React.PureComponent<> {
 
 
 const mapStateToProps = state => ({
+    vehicles: state.vehicleStore.vehicles,
 });
 
 const mapDispatchToProps = dispatch => ({

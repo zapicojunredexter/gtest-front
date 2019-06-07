@@ -10,6 +10,9 @@ class Container extends React.PureComponent<> {
         return (
             <div>
                 src/containers/bookings/index.js
+                <ul>
+                {this.props.bookings.map(booking => <li>{JSON.stringify(booking)}</li>)}
+                </ul>
             </div>
         );
     }
@@ -17,6 +20,7 @@ class Container extends React.PureComponent<> {
 
 
 const mapStateToProps = state => ({
+    bookings: state.bookingStore.bookings,
 });
 
 const mapDispatchToProps = dispatch => ({

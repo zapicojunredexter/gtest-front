@@ -14,10 +14,15 @@ import Sidebar from './components/sidebar';
 import Header from './components/header';
 
 import UserService from './redux/user/user.service';
+import CombineService from './services/combine.service';
 
 import './App.css';
 
 class App extends React.PureComponent<> {
+
+    componentDidMount(){
+        this.props.masterSnap();
+    }
     renderMain = () => {
         return (
             <>
@@ -95,6 +100,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(UserService.logout()),
+    masterSnap: () => dispatch(CombineService.snapFetch()),
 });
 
 export default connect(

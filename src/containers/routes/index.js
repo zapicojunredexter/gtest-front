@@ -11,8 +11,14 @@ class Container extends React.PureComponent<> {
         routeName: '',
     }
 
+    componentDidMount(){
+        this.props.fetchRoutes();
+    }
+
     handleAddRoute = () => {
-        this.props.addRoute(this.state);
+        this.props.addRoute(this.state)
+            .then(this.props.fetchRoutes)
+            .catch(err => alert(err.message));
     }
 
     render() {
@@ -27,6 +33,10 @@ class Container extends React.PureComponent<> {
                 <br /><input placeholder="to lng" type="text" value={this.state.toLng} onChange={event => this.setState({ toLng: event.target.value})} />
                 <br /><input placeholder="route name" type="text" value={this.state.routeName} onChange={event => this.setState({ routeName: event.target.value})} />
                 <br /><button onClick={this.handleAddRoute}>SUBMIT</button>
+
+                <ul>
+                    {this.props.routes.map(route => <li>{JSON.stringify(route)}</li>)}
+                </ul>
             </div>
         );
     }
@@ -34,6 +44,7 @@ class Container extends React.PureComponent<> {
 
 
 const mapStateToProps = state => ({
+    routes: state.routeStore.routes,
 });
 
 const mapDispatchToProps = dispatch => ({
