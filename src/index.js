@@ -15,7 +15,8 @@ ReactDOM.render(
  document.getElementById('root')
 );
 // registerServiceWorker();
-serviceWorker.unregister();
+serviceWorker.register();
+// serviceWorker.unregister();
 /*
 import React from 'react';
 import ReactDOM from 'react-dom';
