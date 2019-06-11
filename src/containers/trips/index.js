@@ -2,6 +2,38 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import TripsService from '../../redux/trips/trip.service';
+import { getTripTableData } from '../../redux/trips/trip.selector';
+
+import Table from '../../components/tables/Basic';
+
+import './styles.scss';
+
+const columns = [
+    {
+        Header: 'Departure Date',
+        accessor: 'test',
+    },
+    {
+        Header: 'Departure Time',
+        accessor: 'test1',
+    },
+    {
+        Header: 'Trip Driver',
+        accessor: 'test2',
+    },
+    {
+        Header: 'Trip Route',
+        accessor: 'test3',
+    },
+    {
+        Header: 'Vehicle',
+        accessor: 'test4',
+    },
+    {
+        Header: 'Price',
+        accessor: 'test5',
+    },
+];
 
 class Container extends React.PureComponent<> {
     state = {
@@ -24,7 +56,7 @@ class Container extends React.PureComponent<> {
     }
     render() {
         return (
-            <div>
+            <div className="trips__container">
                 src/containers/trips/index.js
 
 
@@ -46,6 +78,7 @@ class Container extends React.PureComponent<> {
                 <input placeholder="price" type="text" value={this.state.price} onChange={event => this.setState({ price:event.target.value})} />
                 <button onClick={this.handleAddTrip}>ADD</button>
 
+                <Table data={this.props.tableData} columns={columns}/>
                 <ul>
                     {this.props.trips.map(data => <li>{JSON.stringify(data)}</li>)}
                 </ul>
@@ -56,6 +89,7 @@ class Container extends React.PureComponent<> {
 
 
 const mapStateToProps = state => ({
+    tableData: getTripTableData(state),
     trips: state.tripStore.trips,
     routes: state.routeStore.routes,
     drivers: state.driverStore.drivers,

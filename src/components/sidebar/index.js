@@ -4,6 +4,54 @@ import "./styles.scss";
 class Component extends React.PureComponent<> {
     render() {
         return (
+            <aside id="left-panel" class="left-panel">
+                <nav class="navbar navbar-expand-sm navbar-default">
+                    <div id="main-menu" class="main-menu collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class={this.props.currentPath === '/' ? 'active' : ''}>
+                                <Link to="/">
+                                    <i class="menu-icon fa fa-laptop"></i>
+                                    Dashboard
+                                </Link>
+                            </li>
+                            <li class={this.props.currentPath === '/vehicles' ? 'active' : ''}>
+                                <Link to="/vehicles">
+                                    Vehicles
+                                    <i class="menu-icon material-icons">directions_bus</i>
+                                </Link>
+                            </li>
+                            <li class={this.props.currentPath === '/trips' ? 'active' : ''}>
+                                <Link to="/trips">
+                                    Trips<i class="menu-icon material-icons">location_on</i>
+                                </Link>
+                            </li>
+                            <li class={this.props.currentPath === '/routes' ? 'active' : ''}>
+                                <Link to="/routes">
+                                    Routes<i class="menu-icon material-icons">map</i>
+                                </Link>
+                            </li>
+                            <li class={this.props.currentPath === '/drivers' ? 'active' : ''}>
+                                <Link to="/drivers">
+                                    Drivers<i class="menu-icon material-icons">airline_seat_recline_normal</i>
+                                </Link>
+                            </li>
+                            <li class={this.props.currentPath === '/commuters' ? 'active' : ''}>
+                                <Link to="/commuters">
+                                    Commuters<i class="menu-icon material-icons">supervisor_account</i>
+                                </Link>
+                            </li>
+                            <li class={this.props.currentPath === '/todo' ? 'active' : ''}>
+                                <Link to="/todo">
+                                    Tap Up<i class="menu-icon material-icons">account_balance_wallet</i>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </aside>
+        );
+
+        return (
             <div>
             <nav className="main-sidebar">
                 src/components/sidebar/index.js

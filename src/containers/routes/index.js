@@ -1,6 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import RoutesService from '../../redux/routes/route.service';
+import { getRouteTableData } from '../../redux/routes/route.selector';
+import Table from '../../components/tables/Basic';
+
+import './styles.scss';
+
+const columns = [
+    {
+        Header: 'Route',
+        accessor: 'plateNumber',
+    },
+    {
+        Header: 'From',
+        accessor: 'plateNumber',
+    },
+    {
+        Header: 'To',
+        accessor: 'plateNumber',
+    },
+];
 
 class Container extends React.PureComponent<> {
     state = {
@@ -23,7 +42,7 @@ class Container extends React.PureComponent<> {
 
     render() {
         return (
-            <div>
+            <div className="routes__container">
                 src/containers/routes/index.js
 
                 <br /><br /><br /><br /><br /><br />
@@ -37,6 +56,10 @@ class Container extends React.PureComponent<> {
                 <ul>
                     {this.props.routes.map(route => <li>{JSON.stringify(route)}</li>)}
                 </ul>
+                <Table
+                    data={this.props.tableData}
+                    columns={columns}
+                />
             </div>
         );
     }
@@ -45,6 +68,7 @@ class Container extends React.PureComponent<> {
 
 const mapStateToProps = state => ({
     routes: state.routeStore.routes,
+    tableData: getRouteTableData(state),
 });
 
 const mapDispatchToProps = dispatch => ({

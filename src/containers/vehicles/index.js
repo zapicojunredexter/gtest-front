@@ -1,6 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import VehicleService from '../../redux/vehicles/vehicle.service';
+import { getVehicleTableData } from '../../redux/vehicles/vehicle.selector';
+import Table from '../../components/tables/Basic';
+
+import './styles.scss';
+
+const columns = [
+    {
+        Header: 'Plate Number',
+        accessor: 'plateNumber',
+    },
+    {
+        Header: '',
+        accessor: 'plateNumber',
+        Cell: props => <span><button>CLICK ME</button></span>,
+        sortable: false,
+    },
+];
+
 class Container extends React.PureComponent<> {
     state = {
         plateNumber: '',
@@ -28,7 +46,7 @@ class Container extends React.PureComponent<> {
     }
     render() {
         return (
-            <div>
+            <div className="vehicles__container">
                 src/containers/vehicles/index.js
 
                 <br /><br /><br /><br /><br /><br />
@@ -38,6 +56,10 @@ class Container extends React.PureComponent<> {
                 <ul>
                     {this.props.vehicles.map(data => <li>{JSON.stringify(data)}</li>)}
                 </ul>
+                <Table
+                    columns={columns}
+                    data={this.props.tableData}
+                />
             </div>
         );
     }
@@ -46,6 +68,7 @@ class Container extends React.PureComponent<> {
 
 const mapStateToProps = state => ({
     vehicles: state.vehicleStore.vehicles,
+    tableData: getVehicleTableData(state),
 });
 
 const mapDispatchToProps = dispatch => ({

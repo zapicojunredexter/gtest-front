@@ -2,6 +2,35 @@ import React from 'react';
 import { connect } from 'react-redux';
 import DriverService from '../../redux/drivers/driver.service';
 
+import { getDriverTableData } from '../../redux/drivers/driver.selector';
+
+import Table from '../../components/tables/Basic';
+
+import './styles.scss';
+
+const columns = [
+    {
+        Header: 'Email',
+        accessor: 'test',
+    },
+    {
+        Header: 'Name',
+        accessor: 'test1',
+    },
+    {
+        Header: 'Birth Date',
+        accessor: 'test2',
+    },
+    {
+        Header: 'Contact Number',
+        accessor: 'test3',
+    },
+    {
+        Header: 'Gender',
+        accessor: 'test4',
+    },
+];
+
 class Container extends React.PureComponent<> {
     state = {
         email: '',
@@ -24,7 +53,7 @@ class Container extends React.PureComponent<> {
     }
     render() {
         return (
-            <div>
+            <div className="drivers__container">
                 src/containers/drivers/index.js
 
                 <br /><br /><br /><br /><br /><br />
@@ -40,6 +69,10 @@ class Container extends React.PureComponent<> {
                 <ul>
                     {this.props.drivers.map(data => <li>{JSON.stringify(data)}</li>)}
                 </ul>
+                <Table
+                    data={this.props.tableData}
+                    columns={columns}
+                />
             </div>
         );
     }
@@ -48,6 +81,7 @@ class Container extends React.PureComponent<> {
 
 const mapStateToProps = state => ({
     drivers: state.driverStore.drivers,
+    tableData: getDriverTableData(state),
 });
 
 const mapDispatchToProps = dispatch => ({

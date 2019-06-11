@@ -26,9 +26,8 @@ class App extends React.PureComponent<> {
     renderMain = () => {
         return (
             <>
-            <Header />
-            <div style={{display: 'flex',flexDirection: 'row'}}>
                 <Sidebar />
+            <div id="right-panel" class="right-panel">
                 <Route path="/bookings" exact component={Bookings} />
                 <Route path="/drivers" exact component={Drivers} />
                 <Route path="/routes" exact component={Routes} />
@@ -42,12 +41,13 @@ class App extends React.PureComponent<> {
 
     protectedRoute = props => {
         if (this.props.isLoggedIn) {
+            console.log('HOHOY', props);
             return (
                 <Switch>
                     <div>
+                        <Sidebar currentPath={props.location.pathname} />
+                        <div id="right-panel" class="right-panel">
                         <Header logout={this.props.logout} />
-                        <div style={{display: 'flex',flexDirection: 'row'}}>
-                            <Sidebar />
                             <Route path="/" exact component={Dashboard} />
                             <Route path="/bookings" exact component={Bookings} />
                             <Route path="/drivers" exact component={Drivers} />

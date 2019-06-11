@@ -7,6 +7,9 @@ class Component extends React.PureComponent<> {
         return (
             <div>
                 <ReactTable
+                    defaultPageSize={10}
+                    loadingText="Fetching..."
+                    {...this.props}
                     data={this.props.data}
                     columns={this.props.columns}
                 />

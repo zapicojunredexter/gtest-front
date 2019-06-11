@@ -1,6 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CommuterService from '../../redux/commuters/commuter.service';
+import { getCommutersTableData } from '../../redux/commuters/commuter.selector';
+
+import Table from '../../components/tables/Basic';
+
+import './styles.scss';
+
+const columns = [
+    {
+        Header: 'Email',
+        accessor: 'test',
+    },
+    {
+        Header: 'Name',
+        accessor: 'test1',
+    },
+    {
+        Header: 'Birth Date',
+        accessor: 'test2',
+    },
+    {
+        Header: 'Contact Number',
+        accessor: 'test3',
+    },
+    {
+        Header: 'Gender',
+        accessor: 'test4',
+    },
+    {
+        Header: 'Balance',
+        accessor: 'test5',
+    },
+];
 
 class Container extends React.PureComponent<> {
     componentDidMount(){
@@ -8,7 +40,7 @@ class Container extends React.PureComponent<> {
     }
     render() {
         return (
-            <div>
+            <div className="commuters__container">
                 src/containers/commuters/index.js
 
 
@@ -16,6 +48,10 @@ class Container extends React.PureComponent<> {
                 <ul>
                     {this.props.commuters.map(data => <li>{JSON.stringify(data)}</li>)}
                 </ul>
+                <Table
+                    data={this.props.tableData}
+                    columns={columns}
+                />
             </div>
         );
     }
@@ -24,6 +60,7 @@ class Container extends React.PureComponent<> {
 
 const mapStateToProps = state => ({
     commuters: state.commuterStore.commuters,
+    tableData: getCommutersTableData(state),
 });
 
 const mapDispatchToProps = dispatch => ({
