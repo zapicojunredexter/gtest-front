@@ -36,7 +36,7 @@ const columns = [
 
 class Container extends React.PureComponent<> {
     state = {
-        isAddModalOpen: true,
+        isAddModalOpen: false,
     }
 
     componentDidMount(){

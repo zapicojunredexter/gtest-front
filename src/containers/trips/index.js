@@ -7,68 +7,94 @@ import { getTripTableData } from '../../redux/trips/trip.selector';
 import Table from '../../components/tables/Basic';
 
 import AddTripModal from './modals/AddTripModal';
-import { showAlert } from '../../utils/alert';
+import { showAlert, confirmAlert } from '../../utils/alert';
 
 import './styles.scss';
-
-const columns = [
-    {
-        Header: '#',
-        accessor: null,
-        Cell: (data) => (
-            <span>
-                {data.viewIndex}
-            </span>
-        ),
-        width: 50,
-    },
-    {
-        Header: 'Departure Date',
-        accessor: 'departDate',
-    },
-    {
-        Header: 'Departure Time',
-        accessor: 'departTime',
-    },
-    {
-        Header: 'Trip Driver',
-        accessor: 'driver',
-    },
-    {
-        Header: 'Trip Route',
-        accessor: 'route',
-    },
-    {
-        Header: 'Vehicle',
-        accessor: 'vehicle',
-    },
-    {
-        Header: 'Price',
-        accessor: 'price',
-    },
-    {
-        Header: 'Bookings',
-        accessor: 'totalBookings',
-    },
-    {
-        Header: 'Status',
-        accessor: 'status',
-    },
-];
 
 class Container extends React.PureComponent<> {
     state = {
         isAddModalOpen: false,
     };
 
+    columns = [
+        {
+            Header: '#',
+            accessor: null,
+            Cell: (data) => (
+                <span>
+                    {data.viewIndex}
+                </span>
+            ),
+            width: 50,
+        },
+        {
+            Header: 'Departure Date',
+            accessor: 'departDate',
+        },
+        {
+            Header: 'Departure Time',
+            accessor: 'departTime',
+        },
+        {
+            Header: 'Trip Driver',
+            accessor: 'driver',
+        },
+        {
+            Header: 'Trip Route',
+            accessor: 'route',
+        },
+        {
+            Header: 'Vehicle',
+            accessor: 'vehicle',
+        },
+        {
+            Header: 'Price',
+            accessor: 'price',
+        },
+        {
+            Header: 'Bookings',
+            accessor: 'totalBookings',
+        },
+        {
+            Header: 'Status',
+            accessor: 'status',
+        },
+        {
+            Header: '',
+            accessor: null,
+            Cell: ({original}) => (
+                <button onClick={() => this.handleCancel(original.id)}>CANCEL</button>
+            ),
+        },
+    ]
+
     componentDidMount(){
         // this.props.fetchTrips();
+    }
+
+    handleCancel = (id) => {
+        confirmAlert('Confirm Cancel', 'Are you sure you want to cancel Trip?', () => {
+            this.props.cancelTrip(id)
+                .then(() => {
+                    showAlert('SUCCESS', 'Cancelled Trip', 'success');
+                    this.props.fetchTrips();
+                })
+                .catch(err => showAlert('ERROR', err.message, 'error'))
+        });
+        /*
+        this.props.cancelTrip(id)
+            .then(() => {
+                showAlert('SUCCESS', 'Cancelled Trip', 'success');
+                this.props.fetchTrips();
+            })
+            .catch(err => showAlert('ERROR', err.message, 'error'))
+        */
     }
 
     handleAddTrip = params => {
         this.props.addTrip(params)
             .then(() => {
-                showAlert('SUCCESS', 'Added new Vehicle', 'success');
+                showAlert('SUCCESS', 'Added new Trip', 'success');
                 this.setState({isAddModalOpen: false});
                 this.props.fetchTrips();
             })
@@ -110,7 +136,7 @@ class Container extends React.PureComponent<> {
                 */}
                 <Table
                     data={this.props.tableData}
-                    columns={columns}
+                    columns={this.columns}
                     loading={this.props.isFetching}
                 />
                 {/*
@@ -136,6 +162,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     fetchTrips: () => dispatch(TripsService.fetchTrips()),
     addTrip: params => dispatch(TripsService.addTrip(params)),
+    cancelTrip: tripId => dispatch(TripsService.cancelTrip(tripId))
 });
 
 export default connect(

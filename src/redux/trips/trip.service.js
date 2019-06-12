@@ -10,6 +10,11 @@ export default class Service {
         dispatch(setIsFetchingTrips(false));
     }
 
+    static cancelTrip = tripId => async dispatch => {
+        const result = await RequestService.put(`trips/cancel/${tripId}`);
+        await responseToJson(result);
+    }
+
     static addTrip = params => async dispatch => {
         const payload = {
             DriverId: params.driver,

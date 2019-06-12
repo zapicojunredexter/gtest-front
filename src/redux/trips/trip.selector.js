@@ -9,6 +9,7 @@ export const getTripTableData = (state) => {
         const seatsValueArr = Object.values(seats);
         const takenSeats = seatsValueArr.filter(seat => seat);
         return {
+            id: trip.Id,
             departDate: trip.Schedule.DepartDate,
             departTime: trip.Schedule.DepartTime,
             driver: `${trip.Driver.FirstName} ${trip.Driver.LastName}`,
