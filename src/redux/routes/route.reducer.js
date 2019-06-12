@@ -2,6 +2,7 @@ import { SET_ROUTES } from './route.action';
 
 const initialState = {
     routes: [],
+    isFetching: true,
 };
 export default (state = initialState, action) => {
     switch (action.type) {

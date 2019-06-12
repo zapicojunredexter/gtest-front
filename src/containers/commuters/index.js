@@ -51,6 +51,7 @@ class Container extends React.PureComponent<> {
                 <Table
                     data={this.props.tableData}
                     columns={columns}
+                    loading={this.props.isFetching}
                 />
             </div>
         );
@@ -61,6 +62,7 @@ class Container extends React.PureComponent<> {
 const mapStateToProps = state => ({
     commuters: state.commuterStore.commuters,
     tableData: getCommutersTableData(state),
+    isFetching: state.commuterStore.isFetching
 });
 
 const mapDispatchToProps = dispatch => ({

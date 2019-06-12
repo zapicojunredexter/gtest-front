@@ -2,6 +2,7 @@ import { SET_BOOKINGS } from './booking.action';
 
 const initialState = {
     bookings: [],
+    isFetching: true,
 };
 export default (state = initialState, action) => {
     switch (action.type) {

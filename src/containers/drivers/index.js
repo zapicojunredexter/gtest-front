@@ -58,7 +58,7 @@ class Container extends React.PureComponent<> {
 
                 <br /><br /><br /><br /><br /><br />
                 <br /><input type="email" onChange={event => this.setState({ email: event.target.value})} placeholder="emal" value={this.state.email} type="email" />
-                <br /><input onChange={event => this.setState({ password: event.target.value})} placeholder="password" value={this.state.password} type="text" />
+                <br /><input className="form-control" onChange={event => this.setState({ password: event.target.value})} placeholder="password" value={this.state.password} type="text" />
                 <br /><input onChange={event => this.setState({ firstName: event.target.value})} placeholder="firstname" value={this.state.firstName} type="text" />
                 <br /><input onChange={event => this.setState({ lastName: event.target.value})} placeholder="lastname" value={this.state.lastName} type="text" />
                 <br /><input onChange={event => this.setState({ birthDate: event.target.value})} placeholder="birthdate" value={this.state.birthDate} type="date" />
@@ -72,6 +72,7 @@ class Container extends React.PureComponent<> {
                 <Table
                     data={this.props.tableData}
                     columns={columns}
+                    loading={this.props.isFetching}
                 />
             </div>
         );
@@ -81,6 +82,7 @@ class Container extends React.PureComponent<> {
 
 const mapStateToProps = state => ({
     drivers: state.driverStore.drivers,
+    isFetching: state.driverStore.isFetching,
     tableData: getDriverTableData(state),
 });
 

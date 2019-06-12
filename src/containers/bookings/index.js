@@ -31,7 +31,11 @@ class Container extends React.PureComponent<> {
                 <ul>
                 {this.props.bookings.map(booking => <li>{JSON.stringify(booking)}</li>)}
                 </ul>
-                <Table data={this.props.tableData} columns={columns}/>
+                <Table
+                    data={this.props.tableData}
+                    columns={columns}
+                    loading={this.props.isFetching}
+                />
             </div>
         );
     }
@@ -41,6 +45,7 @@ class Container extends React.PureComponent<> {
 const mapStateToProps = state => ({
     bookings: state.bookingStore.bookings,
     tableData: state.bookingStore.bookings,
+    isFetching: state.bookingStore.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({

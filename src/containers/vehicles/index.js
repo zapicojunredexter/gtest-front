@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import VehicleService from '../../redux/vehicles/vehicle.service';
 import { getVehicleTableData } from '../../redux/vehicles/vehicle.selector';
 import Table from '../../components/tables/Basic';
+import ActionButton from '../../components/buttons/ActionButton';
 
 import './styles.scss';
 
@@ -13,8 +14,26 @@ const columns = [
     },
     {
         Header: '',
-        accessor: 'plateNumber',
-        Cell: props => <span><button>CLICK ME</button></span>,
+        accessor: 'actions',
+        Cell: ({original}) => (
+            <span>
+                <ActionButton
+                    type="primary"
+                    iconClass="pe-7s-map"
+                    onClick={() => alert(JSON.stringify(original))}
+                />
+                <ActionButton
+                    type="info"
+                    iconClass="fa fa-pencil"
+                    onClick={() => alert(JSON.stringify(original))}
+                />
+                <ActionButton
+                    type="danger"
+                    iconClass="fa fa-ban"
+                    onClick={() => alert(JSON.stringify(original))}
+                />
+            </span>
+        ),
         sortable: false,
     },
 ];
@@ -57,6 +76,7 @@ class Container extends React.PureComponent<> {
                     {this.props.vehicles.map(data => <li>{JSON.stringify(data)}</li>)}
                 </ul>
                 <Table
+                    loading={this.props.isFetching}
                     columns={columns}
                     data={this.props.tableData}
                 />
@@ -67,6 +87,7 @@ class Container extends React.PureComponent<> {
 
 
 const mapStateToProps = state => ({
+    isFetching: state.vehicleStore.isFetching,
     vehicles: state.vehicleStore.vehicles,
     tableData: getVehicleTableData(state),
 });

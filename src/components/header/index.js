@@ -6,8 +6,8 @@ class Component extends React.PureComponent<> {
             <header id="header" class="header">
                 <div class="top-left">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="./"><img src="" alt="Logo" /></a>
-                        <a class="navbar-brand hidden" href="./"><img src="" alt="Logo" /></a>
+                        <a class="navbar-brand" href="images/logo.png"><img src="" alt="Logo" /></a>
+                        <a class="navbar-brand hidden" href="images/logo2.png"><img src="" alt="Logo" /></a>
                         <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                     </div>
                 </div>
@@ -16,7 +16,7 @@ class Component extends React.PureComponent<> {
                         <div class="header-left">
                             <div class="user-area dropdown float-right">
                                 <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                admin 1
+                                admin@email.com
                                 <i class="material-icons">arrow_drop_down</i>
                                 
                                 </a>
@@ -24,7 +24,7 @@ class Component extends React.PureComponent<> {
                                 <div class="user-menu dropdown-menu">
                                     <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
         
-                                    <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                                    <a class="nav-link" onClick={this.props.logout}><i class="fa fa-power -off"></i>Logout</a>
                                 </div>
                             </div>
                         </div>

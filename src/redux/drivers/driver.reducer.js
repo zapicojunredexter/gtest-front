@@ -2,6 +2,7 @@ import { SET_DRIVERS } from './driver.action';
 
 const initialState = {
     drivers: [],
+    isFetching: true,
 };
 export default (state = initialState, action) => {
     switch (action.type) {

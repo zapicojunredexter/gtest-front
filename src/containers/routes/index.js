@@ -9,15 +9,15 @@ import './styles.scss';
 const columns = [
     {
         Header: 'Route',
-        accessor: 'plateNumber',
+        accessor: 'route',
     },
     {
         Header: 'From',
-        accessor: 'plateNumber',
+        accessor: 'from',
     },
     {
         Header: 'To',
-        accessor: 'plateNumber',
+        accessor: 'to',
     },
 ];
 
@@ -59,6 +59,7 @@ class Container extends React.PureComponent<> {
                 <Table
                     data={this.props.tableData}
                     columns={columns}
+                    loading={this.props.isFetching}
                 />
             </div>
         );
@@ -69,6 +70,7 @@ class Container extends React.PureComponent<> {
 const mapStateToProps = state => ({
     routes: state.routeStore.routes,
     tableData: getRouteTableData(state),
+    isFetching: state.routeStore.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({

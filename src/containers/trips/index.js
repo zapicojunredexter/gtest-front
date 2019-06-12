@@ -78,7 +78,11 @@ class Container extends React.PureComponent<> {
                 <input placeholder="price" type="text" value={this.state.price} onChange={event => this.setState({ price:event.target.value})} />
                 <button onClick={this.handleAddTrip}>ADD</button>
 
-                <Table data={this.props.tableData} columns={columns}/>
+                <Table
+                    data={this.props.tableData}
+                    columns={columns}
+                    loading={this.props.isFetching}
+                />
                 <ul>
                     {this.props.trips.map(data => <li>{JSON.stringify(data)}</li>)}
                 </ul>
@@ -90,6 +94,7 @@ class Container extends React.PureComponent<> {
 
 const mapStateToProps = state => ({
     tableData: getTripTableData(state),
+    isFetching: state.tripStore.isFetching,
     trips: state.tripStore.trips,
     routes: state.routeStore.routes,
     drivers: state.driverStore.drivers,

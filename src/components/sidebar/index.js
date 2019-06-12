@@ -25,6 +25,11 @@ class Component extends React.PureComponent<> {
                                     Trips<i class="menu-icon material-icons">location_on</i>
                                 </Link>
                             </li>
+                            <li class={this.props.currentPath === '/bookings' ? 'active' : ''}>
+                                <Link to="/bookings">
+                                    Bookings<i class="menu-icon material-icons">location_on</i>
+                                </Link>
+                            </li>
                             <li class={this.props.currentPath === '/routes' ? 'active' : ''}>
                                 <Link to="/routes">
                                     Routes<i class="menu-icon material-icons">map</i>
