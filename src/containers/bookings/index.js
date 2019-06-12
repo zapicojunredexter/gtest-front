@@ -20,10 +20,10 @@ class Container extends React.PureComponent<> {
           }, {
             id: 'friendName', // Required because our accessor is not a string
             Header: 'Friend Name',
-            accessor: d => d.friend.name // Custom value accessors!
+            // accessor: d => d.friend.name // Custom value accessors!
           }, {
             Header: props => <span>Friend Age</span>, // Custom header components!
-            accessor: 'friend.age'
+            // accessor: 'friend.age'
           }];
         return (
             <div className="bookings__container">

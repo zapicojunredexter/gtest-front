@@ -4,6 +4,7 @@ import VehicleService from '../../redux/vehicles/vehicle.service';
 import { getVehicleTableData } from '../../redux/vehicles/vehicle.selector';
 import Table from '../../components/tables/Basic';
 import ActionButton from '../../components/buttons/ActionButton';
+import AddModal from './modals/AddVehicleModal';
 
 import './styles.scss';
 
@@ -40,32 +41,29 @@ const columns = [
 
 class Container extends React.PureComponent<> {
     state = {
-        plateNumber: '',
-        seats: {
-            'seat-1' : {
-                sample: true,
-            },
-            'seat-2' : {
-                sample: true,
-            },
-            'seat-3' : {
-                sample: true,
-            }
-        },
+        isAddModalOpen: false,
     }
 
     componentDidMount(){
-        this.props.fetchVehicles();
+        // this.props.fetchVehicles();
     }
 
-    handleAddVehicle = () => {
-        this.props.addVehicle(this.state)
-            .then(this.props.fetchVehicles)
-            .catch(err => alert(err.message));
+    handleAddVehicle = params => {
+        alert(JSON.stringify(params));
+        // this.props.addVehicle(this.state)
+        //     .then(this.props.fetchVehicles)
+        //     .catch(err => alert(err.message));
     }
     render() {
         return (
             <div className="vehicles__container">
+                <button onClick={() => this.setState({isAddModalOpen: true})}>ADD</button>
+                <AddModal
+                    isOpen={this.state.isAddModalOpen}
+                    onClose={() => this.setState({isAddModalOpen: false})}
+                    onSubmit={this.handleAddVehicle}
+                />
+                {/*}
                 src/containers/vehicles/index.js
 
                 <br /><br /><br /><br /><br /><br />
@@ -75,6 +73,7 @@ class Container extends React.PureComponent<> {
                 <ul>
                     {this.props.vehicles.map(data => <li>{JSON.stringify(data)}</li>)}
                 </ul>
+                */}
                 <Table
                     loading={this.props.isFetching}
                     columns={columns}
