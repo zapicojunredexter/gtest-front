@@ -1,4 +1,4 @@
-import { SET_TRIPS } from './trip.action';
+import { SET_TRIPS, SET_IS_FETCHING_TRIPS } from './trip.action';
 
 const initialState = {
     trips: [],
@@ -10,6 +10,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 trips: action.payload.trips,
+            }
+        case SET_IS_FETCHING_TRIPS:
+            return {
+                ...state,
+                isFetching: action.payload.isFetching,
             }
         default:
             return state;

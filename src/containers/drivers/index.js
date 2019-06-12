@@ -6,59 +6,85 @@ import { getDriverTableData } from '../../redux/drivers/driver.selector';
 
 import Table from '../../components/tables/Basic';
 
+import AddDriverModal from './modals/AddDriverModal';
+import { showAlert } from '../../utils/alert';
+
 import './styles.scss';
 
 const columns = [
     {
+        Header: '#',
+        accessor: null,
+        Cell: (data) => (
+            <span>
+                {data.viewIndex}
+            </span>
+        ),
+        width: 50,
+    },
+    {
         Header: 'Email',
-        accessor: 'test',
+        accessor: 'email',
     },
     {
         Header: 'Name',
-        accessor: 'test1',
+        accessor: 'name',
     },
     {
         Header: 'Birth Date',
-        accessor: 'test2',
+        accessor: 'birthDate',
     },
     {
         Header: 'Contact Number',
-        accessor: 'test3',
+        accessor: 'contactNumber',
     },
     {
         Header: 'Gender',
-        accessor: 'test4',
+        accessor: 'gender',
     },
 ];
 
 class Container extends React.PureComponent<> {
     state = {
-        email: '',
-        password: '',
-        firstName: '',
-        lastName: '',
-        birthDate: '',
-        contactNumber: '',
-        gender: 'male',
+        isAddModalOpen: false,
     }
 
     componentDidMount () {
         // this.props.fetchDrivers();
     }
 
-    handleAddDriver = () => {
+    handleAddDriver = params => {
+        alert(JSON.stringify(params));
+        /*
         this.props.addDriver(this.state)
             .then(this.props.fetchDrivers)
             .catch(err => alert(err.message));
+            */
+        
+        this.props.addDriver(params)
+           .then(() => {
+               showAlert('SUCCESS', 'Added new Driver', 'success');
+               this.setState({isAddModalOpen: false});
+               this.props.fetchDrivers();
+           })
+           .catch(err => showAlert('ERROR', err.message, 'error'));
+
     }
     render() {
         return (
             <div className="drivers__container">
-                src/containers/drivers/index.js
+                
+                <button onClick={() => this.setState({isAddModalOpen: true})}>ADD</button>
+                <AddDriverModal
+                    isOpen={this.state.isAddModalOpen}
+                    onClose={() => this.setState({isAddModalOpen: false})}
+                    onSubmit={this.handleAddDriver}
+                />
+                {/*}
 
                 <br /><br /><br /><br /><br /><br />
                 <br /><input type="email" onChange={event => this.setState({ email: event.target.value})} placeholder="emal" value={this.state.email} type="email" />
-                <br /><input className="form-control" onChange={event => this.setState({ password: event.target.value})} placeholder="password" value={this.state.password} type="text" />
+                <br /><input onChange={event => this.setState({ password: event.target.value})} placeholder="password" value={this.state.password} type="text" />
                 <br /><input onChange={event => this.setState({ firstName: event.target.value})} placeholder="firstname" value={this.state.firstName} type="text" />
                 <br /><input onChange={event => this.setState({ lastName: event.target.value})} placeholder="lastname" value={this.state.lastName} type="text" />
                 <br /><input onChange={event => this.setState({ birthDate: event.target.value})} placeholder="birthdate" value={this.state.birthDate} type="date" />
@@ -69,6 +95,7 @@ class Container extends React.PureComponent<> {
                 <ul>
                     {this.props.drivers.map(data => <li>{JSON.stringify(data)}</li>)}
                 </ul>
+                */}
                 <Table
                     data={this.props.tableData}
                     columns={columns}

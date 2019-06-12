@@ -30,4 +30,14 @@ export default class RequestService {
             },
         })
     }
+
+    static patch =  (path, body = {}) => {
+        return fetch(`${API_URL}/${path}`, {
+            method: 'PATCH',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+    }
 }

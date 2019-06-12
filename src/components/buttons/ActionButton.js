@@ -1,5 +1,22 @@
 import React from 'react';
 import "./styles.scss";
+/*
+    <ActionButton
+        type="primary"
+        iconClass="pe-7s-map"
+        onClick={() => alert(JSON.stringify(original))}
+    />
+    <ActionButton
+        type="info"
+        iconClass="fa fa-pencil"
+        onClick={() => alert(JSON.stringify(original))}
+    />
+    <ActionButton
+        type="danger"
+        iconClass="fa fa-ban"
+        onClick={() => alert(JSON.stringify(original))}
+    />
+*/
 class Component extends React.PureComponent<> {
     render() {
         return (

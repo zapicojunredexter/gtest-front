@@ -41,7 +41,6 @@ class App extends React.PureComponent<> {
 
     protectedRoute = props => {
         if (this.props.isLoggedIn) {
-            console.log('HOHOY', props);
             return (
                 <Switch>
                     <div>

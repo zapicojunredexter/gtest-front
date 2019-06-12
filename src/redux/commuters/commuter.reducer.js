@@ -1,4 +1,4 @@
-import { SET_COMMUTERS } from './commuter.action';
+import { SET_COMMUTERS, SET_IS_FETCHING_COMMUTERS } from './commuter.action';
 
 const initialState = {
     commuters: [],
@@ -10,6 +10,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 commuters: action.payload.commuters,
+            }
+        case SET_IS_FETCHING_COMMUTERS:
+            return {
+                ...state,
+                isFetching: action.payload.isFetching,
             }
         default:
             return state;

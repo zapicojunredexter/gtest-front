@@ -5,54 +5,83 @@ import { getVehicleTableData } from '../../redux/vehicles/vehicle.selector';
 import Table from '../../components/tables/Basic';
 import ActionButton from '../../components/buttons/ActionButton';
 import AddModal from './modals/AddVehicleModal';
+import { showAlert } from '../../utils/alert';
 
 import './styles.scss';
-
-const columns = [
-    {
-        Header: 'Plate Number',
-        accessor: 'plateNumber',
-    },
-    {
-        Header: '',
-        accessor: 'actions',
-        Cell: ({original}) => (
-            <span>
-                <ActionButton
-                    type="primary"
-                    iconClass="pe-7s-map"
-                    onClick={() => alert(JSON.stringify(original))}
-                />
-                <ActionButton
-                    type="info"
-                    iconClass="fa fa-pencil"
-                    onClick={() => alert(JSON.stringify(original))}
-                />
-                <ActionButton
-                    type="danger"
-                    iconClass="fa fa-ban"
-                    onClick={() => alert(JSON.stringify(original))}
-                />
-            </span>
-        ),
-        sortable: false,
-    },
-];
 
 class Container extends React.PureComponent<> {
     state = {
         isAddModalOpen: false,
     }
 
+    columns = [
+        {
+            Header: '#',
+            accessor: null,
+            Cell: (data) => (
+                <span>
+                    {data.viewIndex}
+                </span>
+            ),
+            width: 50,
+        },
+        {
+            Header: 'Plate Number',
+            accessor: 'plateNumber',
+        },
+        {
+            Header: 'Status',
+            accessor: 'isActive',
+        },
+        {
+            Header: '',
+            accessor: 'actions',
+            Cell: ({original}) => (
+                <span>
+                    <ActionButton
+                        type="danger"
+                        iconClass="fa fa-ban"
+                        onClick={() => this.handleDisableVehicle(original.id)}
+                    />
+                    <button onClick={() => this.handleEnableVehicle(original.id)}>enableVehicle</button>
+                </span>
+            ),
+            width: 150,
+            sortable: false,
+        },
+    ];
+
     componentDidMount(){
         // this.props.fetchVehicles();
     }
 
+    handleEnableVehicle = (vehicleId) => {
+        this.props.enableVehicle(vehicleId)
+            .then(() => {
+                showAlert('SUCCESS', 'Enable vehicle', 'success');
+                this.props.fetchVehicles();
+            })
+            .catch(err => showAlert('ERROR', err.message, 'error'));
+    }
+
+    handleDisableVehicle = (vehicleId) => {
+        this.props.disableVehicle(vehicleId)
+            .then(() => {
+                showAlert('SUCCESS', 'Disabled vehicle', 'success');
+                this.props.fetchVehicles();
+            })
+            .catch(err => showAlert('ERROR', err.message, 'error'));
+    }
+
     handleAddVehicle = params => {
-        alert(JSON.stringify(params));
-        // this.props.addVehicle(this.state)
-        //     .then(this.props.fetchVehicles)
-        //     .catch(err => alert(err.message));
+        this.props.addVehicle(params)
+            .then(() => {
+                showAlert('SUCCESS', 'Added new Vehicle', 'success');
+                this.setState({isAddModalOpen: false});
+                this.props.fetchVehicles();
+            })
+            .catch(err => showAlert('ERROR', err.message, 'error'));
+
     }
     render() {
         return (
@@ -63,20 +92,9 @@ class Container extends React.PureComponent<> {
                     onClose={() => this.setState({isAddModalOpen: false})}
                     onSubmit={this.handleAddVehicle}
                 />
-                {/*}
-                src/containers/vehicles/index.js
-
-                <br /><br /><br /><br /><br /><br />
-                <input placeholder="plate number" value={this.state.plateNumber} onChange={event => this.setState({ plateNumber:event.target.value})} />
-                <input disabled placeholder="seats" value={this.state.seats} onChange={event => this.setState({ seats:event.target.value})} />
-                <button onClick={this.handleAddVehicle}>ADD</button>
-                <ul>
-                    {this.props.vehicles.map(data => <li>{JSON.stringify(data)}</li>)}
-                </ul>
-                */}
                 <Table
                     loading={this.props.isFetching}
-                    columns={columns}
+                    columns={this.columns}
                     data={this.props.tableData}
                 />
             </div>
@@ -94,6 +112,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     fetchVehicles: () => dispatch(VehicleService.fetchVehicles()),
     addVehicle: params => dispatch(VehicleService.addVehicle(params)),
+    disableVehicle: id => dispatch(VehicleService.disableVehicle(id)),
+    enableVehicle: id => dispatch(VehicleService.enableVehicle(id)),
 });
 
 export default connect(

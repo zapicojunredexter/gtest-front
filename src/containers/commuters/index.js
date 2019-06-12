@@ -7,30 +7,41 @@ import Table from '../../components/tables/Basic';
 
 import './styles.scss';
 
+
 const columns = [
     {
+        Header: '#',
+        accessor: null,
+        Cell: (data) => (
+            <span>
+                {data.viewIndex}
+            </span>
+        ),
+        width: 50,
+    },
+    {
         Header: 'Email',
-        accessor: 'test',
+        accessor: 'email',
     },
     {
         Header: 'Name',
-        accessor: 'test1',
+        accessor: 'name',
     },
     {
         Header: 'Birth Date',
-        accessor: 'test2',
+        accessor: 'birthDate',
     },
     {
         Header: 'Contact Number',
-        accessor: 'test3',
+        accessor: 'contactNumber',
     },
     {
         Header: 'Gender',
-        accessor: 'test4',
+        accessor: 'gender',
     },
     {
         Header: 'Balance',
-        accessor: 'test5',
+        accessor: 'points',
     },
 ];
 
@@ -41,6 +52,7 @@ class Container extends React.PureComponent<> {
     render() {
         return (
             <div className="commuters__container">
+                {/*
                 src/containers/commuters/index.js
 
 
@@ -48,6 +60,8 @@ class Container extends React.PureComponent<> {
                 <ul>
                     {this.props.commuters.map(data => <li>{JSON.stringify(data)}</li>)}
                 </ul>
+                */}
+                
                 <Table
                     data={this.props.tableData}
                     columns={columns}

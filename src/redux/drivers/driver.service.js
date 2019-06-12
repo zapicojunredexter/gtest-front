@@ -1,13 +1,13 @@
-import { setDrivers } from './driver.action';
+import { setDrivers, setIsFetchingDrivers } from './driver.action';
 import RequestService from '../../services/request.service';
 import { responseToJson } from '../../utils/parsing.helpers';
 export default class Service {
     static addDriver = (params) => async dispatch => {
-        console.log(params);
         const payload = {
             email: params.email,
             password: params.password,
-            BirthDate: new Date(params.birthDate),
+            // BirthDate: new Date(params.birthDate),
+            BirthDate: params.birthDate,
             ContactNumber: params.contactNumber,
             FirstName: params.firstName,
             Gender: params.gender,
@@ -18,8 +18,10 @@ export default class Service {
         await responseToJson(result);
     }
     static fetchDrivers = () => async dispatch => {
+        dispatch(setIsFetchingDrivers(true));
         const results = await RequestService.get('users/drivers');
         const json = await responseToJson(results);
         dispatch(setDrivers(json));
+        dispatch(setIsFetchingDrivers(false));
     }
 };

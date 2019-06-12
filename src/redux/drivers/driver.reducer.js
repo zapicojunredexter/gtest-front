@@ -1,8 +1,8 @@
-import { SET_DRIVERS } from './driver.action';
+import { SET_DRIVERS, SET_IS_FETCHING_DRIVERS } from './driver.action';
 
 const initialState = {
     drivers: [],
-    isFetching: true,
+    isFetching: false,
 };
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -11,6 +11,11 @@ export default (state = initialState, action) => {
                 ...state,
                 drivers: action.payload.drivers,
             }
+        case SET_IS_FETCHING_DRIVERS:
+            return {
+                ...state,
+                isFetching: action.payload.isFetching,
+            };
         default:
             return state;
     }

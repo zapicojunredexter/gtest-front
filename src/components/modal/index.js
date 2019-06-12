@@ -11,6 +11,7 @@ class Component extends React.PureComponent<> {
                 show={this.props.isOpen}
                 onClose={this.props.onClose}
                 containerStyle={{width: this.props.modalWidth}}
+                style={{zIndex: 1000}}
             >
                 {this.props.children}
             </Modal>

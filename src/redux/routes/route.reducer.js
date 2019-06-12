@@ -1,8 +1,8 @@
-import { SET_ROUTES } from './route.action';
+import { SET_ROUTES, SET_IS_FETCHING_ROUTES } from './route.action';
 
 const initialState = {
     routes: [],
-    isFetching: true,
+    isFetching: false,
 };
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -10,6 +10,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 routes: action.payload.routes,
+            }
+        case SET_IS_FETCHING_ROUTES:
+            return {
+                ...state,
+                isFetching: action.payload.isFetching,
             }
         default:
             return state;

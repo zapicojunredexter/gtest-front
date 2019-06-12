@@ -4,47 +4,66 @@ import RoutesService from '../../redux/routes/route.service';
 import { getRouteTableData } from '../../redux/routes/route.selector';
 import Table from '../../components/tables/Basic';
 
+import AddRouteModal from './modals/AddRouteModal';
+import { showAlert } from '../../utils/alert';
+
 import './styles.scss';
 
 const columns = [
+    {
+        Header: '#',
+        accessor: null,
+        Cell: (data) => (
+            <span>
+                {data.viewIndex}
+            </span>
+        ),
+        width: 50,
+    },
     {
         Header: 'Route',
         accessor: 'route',
     },
     {
-        Header: 'From',
-        accessor: 'from',
+        Header: 'Destination 1',
+        accessor: 'location1',
     },
     {
-        Header: 'To',
-        accessor: 'to',
+        Header: 'Destination 2',
+        accessor: 'location2',
     },
 ];
 
 class Container extends React.PureComponent<> {
     state = {
-        fromLat: null,
-        fromLng: null,
-        toLat: null,
-        toLng: null,
-        routeName: '',
+        isAddModalOpen: false,
     }
 
     componentDidMount(){
         this.props.fetchRoutes();
     }
 
-    handleAddRoute = () => {
-        this.props.addRoute(this.state)
-            .then(this.props.fetchRoutes)
-            .catch(err => alert(err.message));
+    handleAddRoute = params => {
+        this.props.addRoute(params)
+            .then(() => {
+                showAlert('SUCCESS', 'Added new Route', 'success');
+                this.setState({isAddModalOpen: false});
+                this.props.fetchRoutes();
+            })
+            .catch(err => showAlert('ERROR', err.message, 'error'));
     }
 
     render() {
         return (
             <div className="routes__container">
-                src/containers/routes/index.js
-
+                <button onClick={() => this.setState({isAddModalOpen: true})}>ADD</button>
+                <AddRouteModal
+                    isOpen={this.state.isAddModalOpen}
+                    onClose={() => this.setState({isAddModalOpen: false})}
+                    onSubmit={this.handleAddRoute}
+                />
+                {/*
+                
                 <br /><br /><br /><br /><br /><br />
                 <br /><input placeholder="from lng" type="text" value={this.state.fromLng} onChange={event => this.setState({ fromLng: event.target.value})} />
                 <br /><input placeholder="from lat" type="text" value={this.state.fromLat} onChange={event => this.setState({ fromLat: event.target.value})} />
@@ -56,6 +75,8 @@ class Container extends React.PureComponent<> {
                 <ul>
                     {this.props.routes.map(route => <li>{JSON.stringify(route)}</li>)}
                 </ul>
+                */}
+
                 <Table
                     data={this.props.tableData}
                     columns={columns}

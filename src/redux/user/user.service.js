@@ -7,7 +7,6 @@ export default class Service {
     }
 
     static logout = () => dispatch => {
-        console.log('SULOD');
         dispatch(setIsLoggedOut());
     }
 };

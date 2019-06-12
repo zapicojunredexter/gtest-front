@@ -14,7 +14,8 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "simple-react-modal": "^0.5.1"
+    "simple-react-modal": "^0.5.1",
+    "sweetalert2": "^8.12.1"
   },
   "scripts": {
     "start": "react-scripts start",

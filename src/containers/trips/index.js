@@ -6,57 +6,87 @@ import { getTripTableData } from '../../redux/trips/trip.selector';
 
 import Table from '../../components/tables/Basic';
 
+import AddTripModal from './modals/AddTripModal';
+import { showAlert } from '../../utils/alert';
+
 import './styles.scss';
 
 const columns = [
     {
+        Header: '#',
+        accessor: null,
+        Cell: (data) => (
+            <span>
+                {data.viewIndex}
+            </span>
+        ),
+        width: 50,
+    },
+    {
         Header: 'Departure Date',
-        accessor: 'test',
+        accessor: 'departDate',
     },
     {
         Header: 'Departure Time',
-        accessor: 'test1',
+        accessor: 'departTime',
     },
     {
         Header: 'Trip Driver',
-        accessor: 'test2',
+        accessor: 'driver',
     },
     {
         Header: 'Trip Route',
-        accessor: 'test3',
+        accessor: 'route',
     },
     {
         Header: 'Vehicle',
-        accessor: 'test4',
+        accessor: 'vehicle',
     },
     {
         Header: 'Price',
-        accessor: 'test5',
+        accessor: 'price',
+    },
+    {
+        Header: 'Bookings',
+        accessor: 'totalBookings',
+    },
+    {
+        Header: 'Status',
+        accessor: 'status',
     },
 ];
 
 class Container extends React.PureComponent<> {
     state = {
-        tripDate: null,
-        tripTime: null,
-        driver: null,
-        route: null,
-        vehicle: null,
-        price: null,
+        isAddModalOpen: false,
     };
 
     componentDidMount(){
         // this.props.fetchTrips();
     }
 
-    handleAddTrip = () => {
-        this.props.addTrip(this.state)
-            .then(this.props.fetchTrips)
-            .catch(err => alert(err.message));
+    handleAddTrip = params => {
+        this.props.addTrip(params)
+            .then(() => {
+                showAlert('SUCCESS', 'Added new Vehicle', 'success');
+                this.setState({isAddModalOpen: false});
+                this.props.fetchTrips();
+            })
+            .catch(err => showAlert('ERROR', err.message, 'error'));
     }
     render() {
         return (
             <div className="trips__container">
+                <button onClick={() => this.setState({isAddModalOpen: true})}>ADD</button>
+                <AddTripModal
+                    isOpen={this.state.isAddModalOpen}
+                    onClose={() => this.setState({isAddModalOpen: false})}
+                    drivers={this.props.drivers}
+                    routes={this.props.routes}
+                    vehicles={this.props.vehicles}
+                    onSubmit={this.handleAddTrip}
+                />
+                {/*
                 src/containers/trips/index.js
 
 
@@ -77,15 +107,17 @@ class Container extends React.PureComponent<> {
                 </select>
                 <input placeholder="price" type="text" value={this.state.price} onChange={event => this.setState({ price:event.target.value})} />
                 <button onClick={this.handleAddTrip}>ADD</button>
-
+                */}
                 <Table
                     data={this.props.tableData}
                     columns={columns}
                     loading={this.props.isFetching}
                 />
+                {/*
                 <ul>
                     {this.props.trips.map(data => <li>{JSON.stringify(data)}</li>)}
                 </ul>
+                */}
             </div>
         );
     }
