@@ -47,7 +47,7 @@ class Component extends React.PureComponent<> {
                             </li>
                             <li class={this.props.currentPath === '/todo' ? 'active' : ''}>
                                 <Link to="/todo">
-                                    Tap Up<i class="menu-icon material-icons">account_balance_wallet</i>
+                                    Points<i class="menu-icon material-icons">account_balance_wallet</i>
                                 </Link>
                             </li>
                         </ul>

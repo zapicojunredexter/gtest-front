@@ -7,6 +7,7 @@ import { getTripTableData } from '../../redux/trips/trip.selector';
 import Table from '../../components/tables/Basic';
 
 import AddTripModal from './modals/AddTripModal';
+import EditTripModal from './modals/EditTripModal';
 import { showAlert, confirmAlert } from '../../utils/alert';
 
 import './styles.scss';
@@ -14,6 +15,7 @@ import './styles.scss';
 class Container extends React.PureComponent<> {
     state = {
         isAddModalOpen: false,
+        toEdit: null,
     };
 
     columns = [
@@ -30,6 +32,10 @@ class Container extends React.PureComponent<> {
         {
             Header: 'Departure Date',
             accessor: 'departDate',
+        },
+        {
+            Header: 'ID',
+            accessor: 'id',
         },
         {
             Header: 'Departure Time',
@@ -62,8 +68,13 @@ class Container extends React.PureComponent<> {
         {
             Header: '',
             accessor: null,
+            width: 200,
             Cell: ({original}) => (
-                <button onClick={() => this.handleCancel(original.id)}>CANCEL</button>
+                <span>
+                    
+                    <button onClick={() => this.handleCancel(original.id)}>CANCEL</button>
+                    <button onClick={() => this.handleClickEdit(original)}>EDIT</button>
+                </span>
             ),
         },
     ]
@@ -91,6 +102,22 @@ class Container extends React.PureComponent<> {
         */
     }
 
+    handleClickEdit = trip => {
+        this.setState({toEdit: trip});
+    }
+
+    handleEditTrip = driver => {
+        this.props.updateTripDriver(this.state.toEdit.id, driver)
+            .then(() => {
+                showAlert('SUCCESS', 'Updated trip Driver', 'success');
+                this.setState({toEdit: null});
+                this.props.fetchTrips();
+            })
+            .catch(err => showAlert('ERROR', err.message, 'error'));
+        // alert(JSON.stringify(driver));
+        // this.props.updateTripDriver();
+    }
+
     handleAddTrip = params => {
         this.props.addTrip(params)
             .then(() => {
@@ -111,6 +138,13 @@ class Container extends React.PureComponent<> {
                     routes={this.props.routes}
                     vehicles={this.props.vehicles}
                     onSubmit={this.handleAddTrip}
+                />
+                <EditTripModal
+                    isOpen={!!this.state.toEdit}
+                    onClose={() => this.setState({toEdit: null})}
+                    drivers={this.props.drivers}
+                    onSubmit={this.handleEditTrip}
+                    {...this.state.toEdit}
                 />
                 {/*
                 src/containers/trips/index.js
@@ -155,14 +189,15 @@ const mapStateToProps = state => ({
     isFetching: state.tripStore.isFetching,
     trips: state.tripStore.trips,
     routes: state.routeStore.routes,
-    drivers: state.driverStore.drivers,
-    vehicles: state.vehicleStore.vehicles,
+    drivers: state.driverStore.drivers.filter(data => !data.isDeleted),
+    vehicles: state.vehicleStore.vehicles.filter(data => !data.isDeleted),
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchTrips: () => dispatch(TripsService.fetchTrips()),
     addTrip: params => dispatch(TripsService.addTrip(params)),
-    cancelTrip: tripId => dispatch(TripsService.cancelTrip(tripId))
+    cancelTrip: tripId => dispatch(TripsService.cancelTrip(tripId)),
+    updateTripDriver: (tripId, driver) => dispatch(TripsService.updateTripDriver(tripId, driver))
 });
 
 export default connect(

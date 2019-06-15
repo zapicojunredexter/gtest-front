@@ -1,6 +1,7 @@
 import { setTrips, setIsFetchingTrips } from './trip.action';
 import RequestService from '../../services/request.service';
 import { responseToJson } from '../../utils/parsing.helpers';
+import { async } from 'q';
 export default class Service {
     static fetchTrips = (username, password) => async dispatch => {
         dispatch(setIsFetchingTrips(true));
@@ -25,6 +26,21 @@ export default class Service {
             Price: params.price
         };
         const result = await RequestService.post('trips',payload);
+        await responseToJson(result);
+    }
+
+    static updateTripDriver = (tripId,driver) => async dispatch => {
+        const payload = {
+            Driver: {
+                Id: driver.Id,
+                LastName: driver.LastName,
+                FirstName: driver.FirstName,
+                BirthDate: driver.BirthDate,
+                Gender: driver.Gender,
+                ContactNumber: driver.ContactNumber
+            }
+        }
+        const result = await RequestService.put(`trips/${tripId}`,payload);
         await responseToJson(result);
     }
 };

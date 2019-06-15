@@ -4,67 +4,78 @@ import CommuterService from '../../redux/commuters/commuter.service';
 import { getCommutersTableData } from '../../redux/commuters/commuter.selector';
 
 import Table from '../../components/tables/Basic';
+import { showAlert } from '../../utils/alert';
 
 import './styles.scss';
 
-
-const columns = [
-    {
-        Header: '#',
-        accessor: null,
-        Cell: (data) => (
-            <span>
-                {data.viewIndex}
-            </span>
-        ),
-        width: 50,
-    },
-    {
-        Header: 'Email',
-        accessor: 'email',
-    },
-    {
-        Header: 'Name',
-        accessor: 'name',
-    },
-    {
-        Header: 'Birth Date',
-        accessor: 'birthDate',
-    },
-    {
-        Header: 'Contact Number',
-        accessor: 'contactNumber',
-    },
-    {
-        Header: 'Gender',
-        accessor: 'gender',
-    },
-    {
-        Header: 'Balance',
-        accessor: 'points',
-    },
-];
-
 class Container extends React.PureComponent<> {
+    columns = [
+        {
+            Header: '#',
+            accessor: null,
+            Cell: (data) => (
+                <span>
+                    {data.viewIndex}
+                </span>
+            ),
+            width: 50,
+        },
+        {
+            Header: 'Email',
+            accessor: 'email',
+        },
+        {
+            Header: 'Name',
+            accessor: 'name',
+        },
+        {
+            Header: 'Birth Date',
+            accessor: 'birthDate',
+        },
+        {
+            Header: 'Contact Number',
+            accessor: 'contactNumber',
+        },
+        {
+            Header: 'Gender',
+            accessor: 'gender',
+        },
+        {
+            Header: 'Balance',
+            accessor: 'points',
+        },
+        {
+            Header: '',
+            accessor: null,
+            Cell: ({original}) => (
+                <span>
+                    <button onClick={() => this.handleAddBalance(original)}>ADD BALANCE</button>
+                </span>
+            ),
+        }
+    ];
+
     componentDidMount(){
         this.props.fetchCommuters();
+    }
+
+    handleAddBalance = commuter => {
+        const points = window.prompt('INPUT AMOUNT');
+        if(points) {
+            this.props.addBalance(commuter.id, Number(points))
+                .then(() => {
+                    showAlert('SUCCESS', 'Added balance to Commuter', 'success');
+                    this.props.fetchCommuters();
+                })
+                .catch(err => showAlert('ERROR', err.message, 'error'));
+        }
     }
     render() {
         return (
             <div className="commuters__container">
-                {/*
-                src/containers/commuters/index.js
-
-
-                <br /><br /><br /><br /><br /><br />
-                <ul>
-                    {this.props.commuters.map(data => <li>{JSON.stringify(data)}</li>)}
-                </ul>
-                */}
-                
                 <Table
                     data={this.props.tableData}
-                    columns={columns}
+                    columns={this.columns}
                     loading={this.props.isFetching}
                 />
             </div>
@@ -81,6 +92,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchCommuters: () => dispatch(CommuterService.fetchCommuters()),
+    addBalance: (userId, points) => dispatch(CommuterService.addBalance(userId, points)),
 });
 
 export default connect(

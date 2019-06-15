@@ -38,15 +38,18 @@ class Container extends React.PureComponent<> {
             accessor: 'actions',
             Cell: ({original}) => (
                 <span>
+                    {/*
                     <ActionButton
                         type="danger"
                         iconClass="fa fa-ban"
                         onClick={() => this.handleDisableVehicle(original.id)}
                     />
+                    */}
+                    <button onClick={() => this.handleDisableVehicle(original.id)}>disableVehicle</button>
                     <button onClick={() => this.handleEnableVehicle(original.id)}>enableVehicle</button>
                 </span>
             ),
-            width: 150,
+            width: 350,
             sortable: false,
         },
     ];

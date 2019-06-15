@@ -9,4 +9,12 @@ export default class Service {
         dispatch(setCommuters(json));
         dispatch(setIsFetchingCommuter(false));
     }
+    static addBalance = (userId, points) => async dispatch => {
+        const results = await RequestService.post('wallets', {
+            UserId: userId,
+            Amount: points,
+        });
+        const json = await responseToJson(results);
+        console.log('zzzz',json);
+    }
 };
