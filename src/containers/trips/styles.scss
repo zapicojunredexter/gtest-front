@@ -3,3 +3,35 @@
         padding: 50px;
     }
 }
+
+.addbtn{
+    margin-bottom: 1em;
+    i{
+        margin-left: 5px;
+    }
+}
+
+.addbtn-modal{
+    margin-top: 1em;
+}
+
+.trip-form{
+    margin-top: 1em;
+    h1{
+        font-size: 5vh;
+    }
+}
+
+.fg-trip-modal{
+    p{
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: -2.5px;
+    }
+}
+
+.trip-edit-cancel-btn{
+    button{
+        margin: 0 .2em;
+    }
+}

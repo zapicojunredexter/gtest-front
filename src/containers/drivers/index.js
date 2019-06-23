@@ -17,10 +17,11 @@ const columns = [
         accessor: null,
         Cell: (data) => (
             <span>
-                {data.viewIndex}
+                {data.viewIndex + 1}
             </span>
         ),
         width: 50,
+        filterable: false,
     },
     {
         Header: 'Email',
@@ -41,6 +42,7 @@ const columns = [
     {
         Header: 'Gender',
         accessor: 'gender',
+        filterable: false,
     },
 ];
 
@@ -54,12 +56,6 @@ class Container extends React.PureComponent<> {
     }
 
     handleAddDriver = params => {
-        alert(JSON.stringify(params));
-        /*
-        this.props.addDriver(this.state)
-            .then(this.props.fetchDrivers)
-            .catch(err => alert(err.message));
-            */
         
         this.props.addDriver(params)
            .then(() => {
@@ -74,28 +70,12 @@ class Container extends React.PureComponent<> {
         return (
             <div className="drivers__container">
                 
-                <button onClick={() => this.setState({isAddModalOpen: true})}>ADD</button>
+                <button onClick={() => this.setState({isAddModalOpen: true})} class="btn btn-md btn-primary  addbtn">ADD<i class="fa fa-plus"></i></button>
                 <AddDriverModal
                     isOpen={this.state.isAddModalOpen}
                     onClose={() => this.setState({isAddModalOpen: false})}
                     onSubmit={this.handleAddDriver}
                 />
-                {/*}
-
-                <br /><br /><br /><br /><br /><br />
-                <br /><input type="email" onChange={event => this.setState({ email: event.target.value})} placeholder="emal" value={this.state.email} type="email" />
-                <br /><input onChange={event => this.setState({ password: event.target.value})} placeholder="password" value={this.state.password} type="text" />
-                <br /><input onChange={event => this.setState({ firstName: event.target.value})} placeholder="firstname" value={this.state.firstName} type="text" />
-                <br /><input onChange={event => this.setState({ lastName: event.target.value})} placeholder="lastname" value={this.state.lastName} type="text" />
-                <br /><input onChange={event => this.setState({ birthDate: event.target.value})} placeholder="birthdate" value={this.state.birthDate} type="date" />
-                <br /><input onChange={event => this.setState({ contactNumber: event.target.value})} placeholder="contact number" value={this.state.contactNumber} type="text" />
-                <br /><input onChange={event => this.setState({ gender: event.target.value})} placeholder="" value={this.state.gender} type="text" />
-                <br /><button onClick={this.handleAddDriver}>SUBMIT</button>
-
-                <ul>
-                    {this.props.drivers.map(data => <li>{JSON.stringify(data)}</li>)}
-                </ul>
-                */}
                 <Table
                     data={this.props.tableData}
                     columns={columns}

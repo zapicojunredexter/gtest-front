@@ -1,37 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import VehicleService from '../../redux/vehicles/vehicle.service';
-import { getVehicleTableData } from '../../redux/vehicles/vehicle.selector';
+import { getVehicleTableData, getVehicleTableDataInctive } from '../../redux/vehicles/vehicle.selector';
 import Table from '../../components/tables/Basic';
 import ActionButton from '../../components/buttons/ActionButton';
 import AddModal from './modals/AddVehicleModal';
 import { showAlert } from '../../utils/alert';
 
 import './styles.scss';
+import { stat } from 'fs';
 
 class Container extends React.PureComponent<> {
     state = {
         isAddModalOpen: false,
     }
 
-    columns = [
+    columnsActive = [
         {
             Header: '#',
             accessor: null,
             Cell: (data) => (
                 <span>
-                    {data.viewIndex}
+                    {data.viewIndex + 1}
                 </span>
             ),
             width: 50,
+            filterable: false,
         },
         {
             Header: 'Plate Number',
             accessor: 'plateNumber',
-        },
-        {
-            Header: 'Status',
-            accessor: 'isActive',
         },
         {
             Header: '',
@@ -45,12 +43,47 @@ class Container extends React.PureComponent<> {
                         onClick={() => this.handleDisableVehicle(original.id)}
                     />
                     */}
-                    <button onClick={() => this.handleDisableVehicle(original.id)}>disableVehicle</button>
-                    <button onClick={() => this.handleEnableVehicle(original.id)}>enableVehicle</button>
+                    <button onClick={() => this.handleDisableVehicle(original.id)} class="btn btn-md btn-danger">Disable Vehicle</button>
                 </span>
             ),
-            width: 350,
             sortable: false,
+            filterable: false,
+        },
+    ];
+
+    columnsInActive = [
+        {
+            Header: '#',
+            accessor: null,
+            Cell: (data) => (
+                <span>
+                    {data.viewIndex + 1}
+                </span>
+            ),
+            width: 50,
+            filterable: false,
+        },
+        {
+            Header: 'Plate Number',
+            accessor: 'plateNumber',
+        },
+        {
+            Header: '',
+            accessor: 'actions',
+            Cell: ({original}) => (
+                <span>
+                    {/*
+                    <ActionButton
+                        type="danger"
+                        iconClass="fa fa-ban"
+                        onClick={() => this.handleDisableVehicle(original.id)}
+                    />
+                    */}
+                    <button onClick={() => this.handleEnableVehicle(original.id)} class="btn btn-md btn-success">Enable Vehicle</button>
+                </span>
+            ),
+            sortable: false,
+            filterable: false,
         },
     ];
 
@@ -89,17 +122,28 @@ class Container extends React.PureComponent<> {
     render() {
         return (
             <div className="vehicles__container">
-                <button onClick={() => this.setState({isAddModalOpen: true})}>ADD</button>
+                <button onClick={() => this.setState({isAddModalOpen: true})} class="btn btn-md btn-primary addbtn">ADD<i class="fa fa-plus"></i></button>
                 <AddModal
                     isOpen={this.state.isAddModalOpen}
                     onClose={() => this.setState({isAddModalOpen: false})}
                     onSubmit={this.handleAddVehicle}
                 />
-                <Table
-                    loading={this.props.isFetching}
-                    columns={this.columns}
-                    data={this.props.tableData}
-                />
+                <div className="row">
+                    <div className="col-md-6">
+                        <Table
+                            loading={this.props.isFetching}
+                            columns={this.columnsActive}
+                            data={this.props.tableData}
+                        />
+                    </div>
+                    <div className="col-md-6">
+                        <Table
+                            loading={this.props.isFetching}
+                            columns={this.columnsInActive}
+                            data={this.props.tableDataInactive}
+                        />
+                    </div>
+                </div>
             </div>
         );
     }
@@ -110,6 +154,7 @@ const mapStateToProps = state => ({
     isFetching: state.vehicleStore.isFetching,
     vehicles: state.vehicleStore.vehicles,
     tableData: getVehicleTableData(state),
+    tableDataInactive: getVehicleTableDataInctive(state),
 });
 
 const mapDispatchToProps = dispatch => ({

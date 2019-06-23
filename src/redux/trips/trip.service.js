@@ -1,7 +1,6 @@
 import { setTrips, setIsFetchingTrips } from './trip.action';
 import RequestService from '../../services/request.service';
 import { responseToJson } from '../../utils/parsing.helpers';
-import { async } from 'q';
 export default class Service {
     static fetchTrips = (username, password) => async dispatch => {
         dispatch(setIsFetchingTrips(true));

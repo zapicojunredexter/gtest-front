@@ -15,7 +15,7 @@ export const getBookingsTableData = (state) => {
             commuter: commuter ? `${commuter.FirstName} ${commuter.LastName}` : booking.CommuterId,
             booked: `${new Date(booking.createdAt).toLocaleDateString()} ${new Date(booking.createdAt).toLocaleTimeString()}`,
             route: booking.Trip.Route.Route,
-            schedule: booking.Trip.Schedule.DepartDate,
+            schedule: `${booking.Trip.Schedule.DepartDate} ${booking.Trip.Schedule.DepartTime}`,
             status: booking.Status,
 
         };

@@ -15,9 +15,10 @@ class Container extends React.PureComponent<> {
             accessor: null,
             Cell: (data) => (
                 <span>
-                    {data.viewIndex}
+                    {data.viewIndex + 1}
                 </span>
             ),
+            filterable: false,
             width: 50,
         },
         {
@@ -39,17 +40,20 @@ class Container extends React.PureComponent<> {
         {
             Header: 'Gender',
             accessor: 'gender',
+            filterable: false,
         },
         {
             Header: 'Balance',
             accessor: 'points',
+            filterable: false,
         },
         {
             Header: '',
             accessor: null,
+            filterable: false,
             Cell: ({original}) => (
                 <span>
-                    <button onClick={() => this.handleAddBalance(original)}>ADD BALANCE</button>
+                    <button className="btn btn-primary" onClick={() => this.handleAddBalance(original)}>ADD BALANCE</button>
                 </span>
             ),
         }

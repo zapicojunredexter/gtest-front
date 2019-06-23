@@ -27,7 +27,7 @@ class Component extends React.PureComponent<> {
                             </li>
                             <li class={this.props.currentPath === '/bookings' ? 'active' : ''}>
                                 <Link to="/bookings">
-                                    Bookings<i class="menu-icon material-icons">location_on</i>
+                                    Bookings<i class="menu-icon material-icons">account_balance_wallet</i>
                                 </Link>
                             </li>
                             <li class={this.props.currentPath === '/routes' ? 'active' : ''}>
@@ -43,11 +43,6 @@ class Component extends React.PureComponent<> {
                             <li class={this.props.currentPath === '/commuters' ? 'active' : ''}>
                                 <Link to="/commuters">
                                     Commuters<i class="menu-icon material-icons">supervisor_account</i>
-                                </Link>
-                            </li>
-                            <li class={this.props.currentPath === '/todo' ? 'active' : ''}>
-                                <Link to="/todo">
-                                    Points<i class="menu-icon material-icons">account_balance_wallet</i>
                                 </Link>
                             </li>
                         </ul>

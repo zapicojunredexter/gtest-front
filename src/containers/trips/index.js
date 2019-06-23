@@ -24,22 +24,15 @@ class Container extends React.PureComponent<> {
             accessor: null,
             Cell: (data) => (
                 <span>
-                    {data.viewIndex}
+                    {data.viewIndex + 1}
                 </span>
             ),
             width: 50,
+            filterable: false,
         },
         {
-            Header: 'Departure Date',
-            accessor: 'departDate',
-        },
-        {
-            Header: 'ID',
-            accessor: 'id',
-        },
-        {
-            Header: 'Departure Time',
-            accessor: 'departTime',
+            Header: 'Departure',
+            accessor: 'depart',
         },
         {
             Header: 'Trip Driver',
@@ -56,31 +49,55 @@ class Container extends React.PureComponent<> {
         {
             Header: 'Price',
             accessor: 'price',
+            filterable: false,
         },
         {
             Header: 'Bookings',
             accessor: 'totalBookings',
+            filterable: false,
         },
         {
             Header: 'Status',
             accessor: 'status',
+
+            Cell: ({original}) => (
+                <span className={`badge btn-${this.getStatusClass(original.status)}`}>
+                    {original.status}
+                </span>
+            ),
+            filterable: false,
         },
         {
             Header: '',
             accessor: null,
             width: 200,
             Cell: ({original}) => (
-                <span>
-                    
-                    <button onClick={() => this.handleCancel(original.id)}>CANCEL</button>
-                    <button onClick={() => this.handleClickEdit(original)}>EDIT</button>
+                <span class="trip-edit-cancel-btn">
+                  <button onClick={() => this.handleClickEdit(original)} class="btn btn-md btn-warning"><i class="fa fa-pencil"></i></button>
+                  <button onClick={() => this.handleCancel(original.id)} class="btn btn-md btn-danger"><i class="fa fa-window-close"></i></button>
                 </span>
             ),
+            filterable: false,
         },
     ]
 
     componentDidMount(){
         // this.props.fetchTrips();
+    }
+
+    getStatusClass = status => {
+        switch(status){
+            case 'Waiting':
+                return 'primary';
+            case 'Travelling':
+                return 'success';
+            case 'Cancelled':
+                return 'danger';
+            case 'Finished':
+                return 'warning';
+            default:
+                return 'info';
+        }
     }
 
     handleCancel = (id) => {
@@ -130,7 +147,7 @@ class Container extends React.PureComponent<> {
     render() {
         return (
             <div className="trips__container">
-                <button onClick={() => this.setState({isAddModalOpen: true})}>ADD</button>
+                <button onClick={() => this.setState({isAddModalOpen: true})} class="btn btn-md btn-primary  addbtn">ADD<i class="fa fa-plus"></i></button>
                 <AddTripModal
                     isOpen={this.state.isAddModalOpen}
                     onClose={() => this.setState({isAddModalOpen: false})}

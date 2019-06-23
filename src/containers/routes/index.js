@@ -15,10 +15,11 @@ const columns = [
         accessor: null,
         Cell: (data) => (
             <span>
-                {data.viewIndex}
+                {data.viewIndex + 1}
             </span>
         ),
         width: 50,
+        filterable: false,
     },
     {
         Header: 'Route',
@@ -56,26 +57,12 @@ class Container extends React.PureComponent<> {
     render() {
         return (
             <div className="routes__container">
-                <button onClick={() => this.setState({isAddModalOpen: true})}>ADD</button>
+                <button onClick={() => this.setState({isAddModalOpen: true})} class="btn btn-md btn-primary  addbtn">ADD<i class="fa fa-plus"></i></button>
                 <AddRouteModal
                     isOpen={this.state.isAddModalOpen}
                     onClose={() => this.setState({isAddModalOpen: false})}
                     onSubmit={this.handleAddRoute}
                 />
-                {/*
-                
-                <br /><br /><br /><br /><br /><br />
-                <br /><input placeholder="from lng" type="text" value={this.state.fromLng} onChange={event => this.setState({ fromLng: event.target.value})} />
-                <br /><input placeholder="from lat" type="text" value={this.state.fromLat} onChange={event => this.setState({ fromLat: event.target.value})} />
-                <br /><input placeholder="to lat" type="text" value={this.state.toLat} onChange={event => this.setState({ toLat: event.target.value})} />
-                <br /><input placeholder="to lng" type="text" value={this.state.toLng} onChange={event => this.setState({ toLng: event.target.value})} />
-                <br /><input placeholder="route name" type="text" value={this.state.routeName} onChange={event => this.setState({ routeName: event.target.value})} />
-                <br /><button onClick={this.handleAddRoute}>SUBMIT</button>
-
-                <ul>
-                    {this.props.routes.map(route => <li>{JSON.stringify(route)}</li>)}
-                </ul>
-                */}
 
                 <Table
                     data={this.props.tableData}

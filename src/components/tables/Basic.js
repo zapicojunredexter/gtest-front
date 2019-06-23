@@ -16,6 +16,7 @@ class Component extends React.PureComponent<> {
                     {...this.props}
                     data={this.props.data}
                     columns={this.props.columns}
+                    filterable
                 />
             </div>
         );
