@@ -6,8 +6,8 @@ class Component extends React.PureComponent<> {
             <header id="header" class="header">
                 <div class="top-left">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="images/logo.png"><img src="" alt="Logo" /></a>
-                        <a class="navbar-brand hidden" href="images/logo2.png"><img src="" alt="Logo" /></a>
+                        <a class="navbar-brand"><i class="material-icons">airport_shuttle</i></a>
+                        <a class="navbar-brand hidden"><i class="material-icons">airport_shuttle</i></a>
                         <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                     </div>
                 </div>
