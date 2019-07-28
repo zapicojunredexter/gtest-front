@@ -4,7 +4,7 @@ const tripState = store => store.tripStore.trips;
 export const getTripTableData = (state) => {
     const trips = tripState(state);
     const data = trips.map(trip => {
-        const seats = trip.Vehicle.Seats;
+        const seats = trip.Vehicle.SeatsStatus;
         const seatsValueArr = Object.values(seats);
         const takenSeats = seatsValueArr.filter(seat => seat);
 

@@ -4,32 +4,97 @@ import Modal from '../../../components/modal';
 class ModalComponent extends React.PureComponent<> {
     state = {
         plateNumber: '',
-        seats: {
-            'driver-seat' : {
-                col: 6,
+        // seats: {
+        //     'driver-seat' : {
+        //         width: '49.99%',
+        //         cantReserve: true,
+        //     },
+        //     'seat-1' : {
+        //         width: '49.99%',
+        //     },
+        //     'seat-2' : {
+        //         width: '33.33%',
+        //     },
+        //     'seat-3' : {
+        //         width: '33.33%',
+        //     },
+        //     'seat-4' : {
+        //         width: '33.33%',
+        //     },
+        //     'seat-5' : {
+        //         width: '33.33%',
+        //     },
+        //     'seat-6' : {
+        //         width: '33.33%',
+        //     },
+        //     'seat-7' : {
+        //         width: '33.33%',
+        //     },
+        //     'back-seat-1' : {
+        //         width: '33.33%',
+        //     },
+        //     'back-seat-2' : {
+        //         width: '33.33%',
+        //     },
+        //     'back-seat-3' : {
+        //         width: '33.33%',
+        //     },
+        // },
+        seats: [
+            {
+                key: 'driver-seat',
+                width: '49.99%',
+                cantReserve: true,
             },
-            'seat-1' : {
-                col: 6,
+            {
+                key: 'seat-1',
+                width: '49.99%', 
             },
-            'seat-2' : {
-                col: 4,
+            {
+                key: 'seat-2',
+                width: '33.33%', 
             },
-            'seat-3' : {
-                col: 4,
+            {
+                
+                key: 'seat-3',
+                width: '33.33%', 
             },
-            'seat-4' : {
-                col: 4,
+            {
+                
+                key: 'seat-4',
+                width: '33.33%', 
             },
-            'seat-5' : {
-                col: 4,
+            {
+                
+                key: 'seat-5',
+                width: '33.33%', 
             },
-            'seat-6' : {
-                col: 4,
+            {
+                
+                key: 'seat-6',
+                width: '33.33%', 
             },
-            'seat-7' : {
-                col: 4,
+            {
+               
+                key: 'seat-7',
+                width: '33.33%',  
             },
-        },
+            {
+                
+                key: 'seat-8',
+                width: '33.33%', 
+            },
+            {
+                
+                key: 'seat-9',
+                width: '33.33%', 
+            },
+            {
+                
+                key: 'seat-10',
+                width: '33.33%', 
+            },
+        ],
     }
 
     handleAddVehicle = () => {
@@ -37,8 +102,8 @@ class ModalComponent extends React.PureComponent<> {
     }
 
     render() {
-        const seatKeys = Object.keys(this.state.seats);
-        const seatValues = Object.values(this.state.seats);
+        // const seatKeys = Object.keys(this.state.seats);
+        // const seatValues = Object.values(this.state.seats);
         return (
             <Modal modalWidth="60%" isOpen={this.props.isOpen} onClose={this.props.onClose}>
                 
@@ -57,6 +122,14 @@ class ModalComponent extends React.PureComponent<> {
                                 <button class="btn btn-md btn-primary form-control" onClick={this.handleAddVehicle}>ADD</button>
                             </div>
                             <div className="col-sm-12" style={{padding:30}}>
+                                <div style={{backgroundColor:'gray',flexWrap: 'wrap', display: 'flex'}}>
+                                    {this.state.seats.map((seat, index) => {
+                                        return (
+                                            <div className={`seat-tile`} style={{width: seat.width}}>{seat.key}</div>
+                                        );
+                                    })}
+                                </div>
+                                {/*
                                 <div className="row">
 
                                     {seatValues.map((seat, index) => {
@@ -65,6 +138,8 @@ class ModalComponent extends React.PureComponent<> {
                                         );
                                     })}
                                 </div>
+                                */}
+                                
                             </div>
                         </div>
                        

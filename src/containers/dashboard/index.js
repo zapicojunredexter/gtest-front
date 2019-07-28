@@ -31,12 +31,12 @@ class Container extends React.PureComponent<> {
                                 <div class="card-body">
                                     <div class="stat-widget-five">
                                         <div class="stat-icon dib flat-color-2">
-                                            <i class="material-icons">airline_seat_recline_normal</i>
+                                            <i class="material-icons">map</i>
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
                                                 <div class="stat-text"><span class="count">65</span></div>
-                                                <div class="stat-heading">Drivers</div>
+                                                <div class="stat-heading">Daily Trips</div>
                                             </div>
                                         </div>
                                     </div>
@@ -67,7 +67,8 @@ class Container extends React.PureComponent<> {
                                 <div class="card-body">
                                     <div class="stat-widget-five">
                                         <div class="stat-icon dib flat-color-4">
-                                            <i style={{fontSize: 30}}class="pe-7s-users"></i>
+                                            {/* <i style={{fontSize: 30}}class="pe-7s-users"></i> */}
+                                            <i class="material-icons"> directions_run </i>
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
@@ -80,7 +81,44 @@ class Container extends React.PureComponent<> {
                             </div>
                         </div>
                     </div>
-                
+
+                    <div class="row">
+                        <div class="col-md-9" style={{border: "2px solid gray", height: "80vh"}}>Graph Here</div>
+                        <div class="col-md-3"style={{border: "2px solid gray", height: "80vh"}}> 
+                         <div style={{marginTop: "1em", height: "75vh", overflowY: "scroll"}}>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                         <input type="checkbox" name="vehicle1" value="Route" style={{marginBottom: ".5em"}}/> Route<br/>
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
