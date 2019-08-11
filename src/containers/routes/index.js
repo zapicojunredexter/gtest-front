@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import RoutesService from '../../redux/routes/route.service';
 import { getRouteTableData } from '../../redux/routes/route.selector';
 import Table from '../../components/tables/Basic';
+import LocationService from '../../services/location.service';
 
 import AddRouteModal from './modals/AddRouteModal';
 import { showAlert } from '../../utils/alert';
@@ -22,16 +23,18 @@ const columns = [
         filterable: false,
     },
     {
-        Header: 'Route',
+        Header: 'ROUTE',
         accessor: 'route',
     },
     {
         Header: 'Destination 1',
         accessor: 'location1',
+        show: false,
     },
     {
         Header: 'Destination 2',
         accessor: 'location2',
+        show: false,
     },
 ];
 
@@ -62,6 +65,7 @@ class Container extends React.PureComponent<> {
                     isOpen={this.state.isAddModalOpen}
                     onClose={() => this.setState({isAddModalOpen: false})}
                     onSubmit={this.handleAddRoute}
+                    reverseGeocode={this.props.reverseGeocode}
                 />
 
                 <Table
@@ -84,6 +88,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     fetchRoutes: () => dispatch(RoutesService.fetchRoutes()),
     addRoute: params => dispatch(RoutesService.addRoute(params)),
+    reverseGeocode: (lng, lat) => dispatch(LocationService.reverseGeoCode(lng, lat)),
 });
 
 export default connect(

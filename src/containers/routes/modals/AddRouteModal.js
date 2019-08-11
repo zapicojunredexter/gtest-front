@@ -3,6 +3,11 @@ import Modal from '../../../components/modal';
 
 import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
 
+import Geocode from 'react-geocode';
+
+// set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+Geocode.setApiKey('AIzaSyDIgLS5x_E4Myg9ov45Vrg7on56o_Ej1X0');
+
 // ES5
 
 const Map = ReactMapboxGl({
@@ -20,10 +25,29 @@ class ModalComponent extends React.PureComponent<> {
         toLat: null,
         toLng: null,
         routeName: '',
+        routeName1: '',
+        routeName2: '',
+    }
+
+    componentDidMount() {
+        // this.reverseGeocode();
+    }
+    
+    reverseGeocode = async  (key, { lng, lat }) => {
+        const result = await this.props.reverseGeocode(lng, lat);
+        const place = result && result.features && result.features[0] && result.features[0].place_name;
+        this.setState({[key]: place});
     }
 
     handleAddRoute = () => {
-        this.props.onSubmit(this.state);
+        const params = {
+            fromLat: this.state.fromLat,
+            fromLng: this.state.fromLng,
+            toLat: this.state.toLat,
+            toLng: this.state.toLng,
+            routeName: `${this.state.routeName1} - ${this.state.routeName2}`,
+        };
+        this.props.onSubmit(params);
     }
 
     handleOnClick = (event, {lngLat}) => {
@@ -32,32 +56,45 @@ class ModalComponent extends React.PureComponent<> {
             this.setState({
                 fromLat: lat,
                 fromLng: lng,
-            })
+            });
+            this.reverseGeocode('routeName1', lngLat);
         }else if(!this.state.toLat && !this.state.toLng){
             this.setState({
                 toLat: lat,
                 toLng: lng,
-            })
+            });
+
+            this.reverseGeocode('routeName2', lngLat);
         } else {
             this.setState({
                 fromLat: lat,
                 fromLng: lng,
                 toLat: null,
                 toLng: null,
-            })
+            });
+            this.reverseGeocode('routeName1', lngLat);
         }
     }
 
     render() {
+        console.log('nagrerender', this.state);
         return (
             <Modal modalWidth="60%" isOpen={this.props.isOpen} onClose={this.props.onClose}>
                 <div class="form-group fg-route-modal">
                     <h1>Add a Route</h1>
-                    <hr></hr><br/>
+                    <hr></hr>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12" style={{padding: 20}}>
                             <p>Route Name:</p>
-                            <input placeholder="Route Name" className="form-control" type="text" value={this.state.routeName} onChange={event => this.setState({ routeName: event.target.value})} />
+                            <div className="row">
+                                <input style={{flex:1}} placeholder="From" className="form-control" type="text" value={this.state.routeName1} onChange={event => this.setState({ routeName1: event.target.value})} />
+                                <div style={{textAlign:'center', paddingLeft:10, paddingRight:10}}>{` - `}</div>
+                                <input style={{flex:1}} placeholder="To" className="form-control" type="text" value={this.state.routeName2} onChange={event => this.setState({ routeName2: event.target.value})} />
+                                {/*
+                                <input placeholder="Route Name" className="form-control col-sm-12" type="text" value={this.state.routeName} onChange={event => this.setState({ routeName: event.target.value})} />
+                                */}
+                                
+                            </div>
                         </div>
                     </div><br/>
                     <Map

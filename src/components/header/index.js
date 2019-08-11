@@ -16,7 +16,7 @@ class Component extends React.PureComponent<> {
                         <div class="header-left">
                             <div class="user-area dropdown float-right">
                                 <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                admin@email.com
+                                admin
                                 <i class="material-icons">arrow_drop_down</i>
                                 
                                 </a>

@@ -28,8 +28,9 @@ class Container extends React.PureComponent<> {
             filterable: false,
         },
         {
-            Header: 'Plate Number',
+            Header: 'PLATE NUMBER',
             accessor: 'plateNumber',
+            width: 320,
         },
         {
             Header: '',
@@ -43,7 +44,7 @@ class Container extends React.PureComponent<> {
                         onClick={() => this.handleDisableVehicle(original.id)}
                     />
                     */}
-                    <button onClick={() => this.handleDisableVehicle(original.id)} class="btn btn-md btn-danger">Disable Vehicle</button>
+                    <button onClick={() => this.handleDisableVehicle(original.id)} class="btn btn-md btn-danger"><i class="fa fa-times"></i></button>
                 </span>
             ),
             sortable: false,
@@ -64,8 +65,9 @@ class Container extends React.PureComponent<> {
             filterable: false,
         },
         {
-            Header: 'Plate Number',
+            Header: 'PLATE NUMBER',
             accessor: 'plateNumber',
+            width: 320,
         },
         {
             Header: '',
@@ -79,7 +81,7 @@ class Container extends React.PureComponent<> {
                         onClick={() => this.handleDisableVehicle(original.id)}
                     />
                     */}
-                    <button onClick={() => this.handleEnableVehicle(original.id)} class="btn btn-md btn-success">Enable Vehicle</button>
+                    <button onClick={() => this.handleEnableVehicle(original.id)} class="btn btn-md btn-success"><i class="fa fa-check"></i></button>
                 </span>
             ),
             sortable: false,

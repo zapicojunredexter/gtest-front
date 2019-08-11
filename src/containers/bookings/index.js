@@ -20,23 +20,23 @@ class Container extends React.PureComponent<> {
             filterable: false,
         },
         {
-            Header: 'Commuter',
+            Header: 'COMMUTER',
             accessor: 'commuter',
         },
         {
-            Header: 'Booked',
+            Header: 'BOOKING DATE',
             accessor: 'booked',
         },
         {
-            Header: 'Route',
+            Header: 'ROUTE',
             accessor: 'route',
         },
         {
-            Header: 'Schedule',
+            Header: 'SCHEDULE',
             accessor: 'schedule',
         },
         {
-            Header: 'Status',
+            Header: 'STATUS',
             accessor: 'status',
 
             Cell: ({original}) => (

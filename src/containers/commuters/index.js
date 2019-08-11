@@ -8,6 +8,12 @@ import { showAlert } from '../../utils/alert';
 
 import './styles.scss';
 
+const _calculateAge = (birthdate) => { // birthday is a date
+    const birthday = new Date(birthdate);
+    var ageDifMs = Date.now() - birthday.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
 class Container extends React.PureComponent<> {
     columns = [
         {
@@ -22,28 +28,37 @@ class Container extends React.PureComponent<> {
             width: 50,
         },
         {
-            Header: 'Email',
+            Header: 'EMAIL',
             accessor: 'email',
         },
         {
-            Header: 'Name',
+            Header: 'NAME',
             accessor: 'name',
         },
         {
-            Header: 'Birth Date',
+            Header: 'BIRTH DATE',
             accessor: 'birthDate',
+            Cell: (data) => (
+                <span>
+                    {_calculateAge(data.original.birthDate)} y/o
+                    {/*
+                    {data.viewIndex + 1}
+                    */}
+                </span>
+            ),
         },
         {
-            Header: 'Contact Number',
+            Header: 'CONTACT NUMBER',
             accessor: 'contactNumber',
         },
         {
-            Header: 'Gender',
+            Header: 'GENDER',
             accessor: 'gender',
             filterable: false,
+            show: false,
         },
         {
-            Header: 'Balance',
+            Header: 'BALANCE',
             accessor: 'points',
             filterable: false,
         },

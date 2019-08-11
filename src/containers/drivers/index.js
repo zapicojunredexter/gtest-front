@@ -10,7 +10,12 @@ import AddDriverModal from './modals/AddDriverModal';
 import { showAlert } from '../../utils/alert';
 
 import './styles.scss';
-
+const _calculateAge = (birthdate) => { // birthday is a date
+    const birthday = new Date(birthdate);
+    var ageDifMs = Date.now() - birthday.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
 const columns = [
     {
         Header: '#',
@@ -24,25 +29,46 @@ const columns = [
         filterable: false,
     },
     {
-        Header: 'Email',
+        Header: 'EMAIL',
         accessor: 'email',
     },
     {
-        Header: 'Name',
+        Header: 'GENDER',
+        accessor: 'gender',
+        filterable: false,
+
+        Cell: (data) => (
+            <span>
+                {data.original.gender === 'female' ? 
+                <i className="fa fa-venus" style={{color: 'pink'}}></i>
+                :    
+                <i className="fa fa-mars" style={{color: 'blue'}}></i>
+            }
+            </span>
+        ),
+        show: false,
+    },
+    {
+        Header: 'NAME',
         accessor: 'name',
     },
     {
-        Header: 'Birth Date',
+        Header: 'AGE',
         accessor: 'birthDate',
+
+        Cell: (data) => (
+            <span>
+                {_calculateAge(data.original.birthDate)} y/o
+                {/*
+                {data.viewIndex + 1}
+                */}
+            </span>
+        ),
+        
     },
     {
-        Header: 'Contact Number',
+        Header: 'CONTACT NUMBER',
         accessor: 'contactNumber',
-    },
-    {
-        Header: 'Gender',
-        accessor: 'gender',
-        filterable: false,
     },
 ];
 

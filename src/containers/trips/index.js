@@ -31,33 +31,38 @@ class Container extends React.PureComponent<> {
             filterable: false,
         },
         {
-            Header: 'Departure',
+            Header: 'DEPARTURE',
             accessor: 'depart',
+            width: 150,
         },
         {
-            Header: 'Trip Driver',
+            Header: 'DRIVER',
             accessor: 'driver',
+            width: 150,
         },
         {
-            Header: 'Trip Route',
+            Header: 'ROUTE',
             accessor: 'route',
+            width: 150,
         },
         {
-            Header: 'Vehicle',
+            Header: 'VEHICLE',
             accessor: 'vehicle',
+            width: 100,
         },
         {
-            Header: 'Price',
+            Header: 'PRICE',
             accessor: 'price',
-            filterable: false,
+            width: 100,
         },
         {
-            Header: 'Bookings',
+            Header: 'BOOKINGS',
             accessor: 'totalBookings',
             filterable: false,
+            width: 100,
         },
         {
-            Header: 'Status',
+            Header: 'STATUS',
             accessor: 'status',
 
             Cell: ({original}) => (
@@ -65,6 +70,7 @@ class Container extends React.PureComponent<> {
                     {original.status}
                 </span>
             ),
+            width: 100,
             filterable: false,
         },
         {
@@ -74,7 +80,7 @@ class Container extends React.PureComponent<> {
             Cell: ({original}) => (
                 <span class="trip-edit-cancel-btn">
                   <button onClick={() => this.handleClickEdit(original)} class="btn btn-md btn-warning"><i class="fa fa-pencil"></i></button>
-                  <button onClick={() => this.handleCancel(original.id)} class="btn btn-md btn-danger"><i class="fa fa-window-close"></i></button>
+                  <button onClick={() => this.handleCancel(original.id)} class="btn btn-md btn-danger"><i class="fa fa-times"></i></button>
                 </span>
             ),
             filterable: false,

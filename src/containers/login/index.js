@@ -4,6 +4,10 @@ import UserService from '../../redux/user/user.service';
 import { argumentPlaceholder } from '@babel/types';
 
 class Container extends React.PureComponent<> {
+    state ={
+        username: '',
+        password: ''
+    }
     onPressLogin = () => {
         this.props.login('admin', 'admin');
     }
@@ -26,7 +30,7 @@ class Container extends React.PureComponent<> {
                   <input class="form-control" type="password" placeholder="&#xf084; Password" style={{width: "100%",fontFamily: "Arial, FontAwesome",margin: "1em 0"}}/>
                  </div>
                  <div class="col-md-12">
-                     <button class="btn btn-md btn-primary" style={{width: "100%",margin: "1em 0"}}>Login</button>
+                     <button onClick={this.onPressLogin} class="btn btn-md btn-primary" style={{width: "100%",margin: "1em 0"}}>Login</button>
                  </div>
              </div>
             

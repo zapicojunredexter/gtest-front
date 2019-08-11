@@ -6,6 +6,9 @@ import {
   } from 'recharts';
 import './styles.scss';
 
+const STATIC_COLORS = new Array(50).fill(null).map(() => '#'+(Math.random()*0xFFFFFF<<0).toString(16));
+
+
 class Container extends React.PureComponent<> {
     state = {
         chartData: [
@@ -143,7 +146,12 @@ class Container extends React.PureComponent<> {
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
-                                                <div class="stat-text"><span class="count">50</span></div>
+                                                <div class="stat-text">
+                                                    {/*
+                                                    <span class="count">{this.props.vehicles.length}</span>
+                                                    */}
+                                                    {this.props.vehicles.length}
+                                                </div>
                                                 <div class="stat-heading">Vehicles</div>
                                             </div>
                                         </div>
@@ -161,8 +169,13 @@ class Container extends React.PureComponent<> {
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
-                                                <div class="stat-text"><span class="count">65</span></div>
-                                                <div class="stat-heading">Daily Trips</div>
+                                                <div class="stat-text">
+                                                    {/*
+                                                    <span class="count">{this.props.routes.length}</span>
+                                                    */}
+                                                    {this.props.routes.length}
+                                                </div>
+                                                <div class="stat-heading">Routes {this.props.routes.length}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -179,7 +192,12 @@ class Container extends React.PureComponent<> {
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
-                                                <div class="stat-text"><span class="count">65</span></div>
+                                                <div class="stat-text">
+                                                    {/*
+                                                    <span class="count">{this.props.drivers.length}</span>
+                                                    */}
+                                                    {this.props.drivers.length}
+                                                </div>
                                                 <div class="stat-heading">Drivers</div>
                                             </div>
                                         </div>
@@ -198,7 +216,13 @@ class Container extends React.PureComponent<> {
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
-                                                <div class="stat-text"><span class="count">2986</span></div>
+                                                <div class="stat-text">
+                                                    
+                                                    {/*
+                                                    <span class="count">{this.props.commuters.length}</span>
+                                                    */}
+                                                    {this.props.commuters.length}
+                                                </div>
                                                 <div class="stat-heading">Commuters</div>
                                             </div>
                                         </div>
@@ -209,7 +233,7 @@ class Container extends React.PureComponent<> {
                     </div>
 
                     <div class="row">
-                        <div class="col-md-9" style={{border: "2px solid silver", height: "80vh"}}>
+                        <div class="col-md-9" style={{border: "0px solid silver", overflow:'scroll', height: "80vh"}}>
                              
                             <div
                                 style={{
@@ -233,13 +257,14 @@ class Container extends React.PureComponent<> {
                                     {/*
                                     <Legend />
                                     */}
-                                    {this.props.routes.map(route => {
-                                        return <Line type="monotone" dataKey={route.Route} stroke={'#'+(Math.random()*0xFFFFFF<<0).toString(16)} activeDot={{ r: 8 }} />
+                                    {this.props.routes.map((route, index) => {
+                                        console.log('buhu', STATIC_COLORS[index]);
+                                        return <Line type="monotone" dataKey={route.Route} stroke={STATIC_COLORS[index]} activeDot={{ r: 8 }} />
                                     })}
                                 </LineChart>
                             </div>
                         </div>
-                        <div class="col-md-3"style={{border: "2px solid silver", height: "80vh"}}> 
+                        <div class="col-md-3"style={{border: "0px solid silver", overflow:'scroll', height: "80vh"}}> 
                          <div style={{marginTop: "1em", height: "75vh", overflowY: "scroll"}}>
                         {this.props.routes.map(route => {
                             return (
@@ -301,6 +326,9 @@ class Container extends React.PureComponent<> {
 const mapStateToProps = state => ({
     routes: state.routeStore.routes,
     bookings: state.bookingStore.bookings,
+    vehicles: state.vehicleStore.vehicles,
+    drivers: state.driverStore.drivers,
+    commuters: state.commuterStore.commuters,
 });
 
 const mapDispatchToProps = dispatch => ({

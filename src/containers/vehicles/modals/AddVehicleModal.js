@@ -98,7 +98,11 @@ class ModalComponent extends React.PureComponent<> {
     }
 
     handleAddVehicle = () => {
-        this.props.onSubmit(this.state);
+        const params = {
+            plateNumber: this.state.plateNumber,
+            seats: this.state.seats,
+        };
+        this.props.onSubmit(params);
     }
 
     render() {
@@ -107,6 +111,8 @@ class ModalComponent extends React.PureComponent<> {
         return (
             <Modal modalWidth="60%" isOpen={this.props.isOpen} onClose={this.props.onClose}>
                 
+                <h1>Add a Vehicle</h1>
+                    <hr></hr><br/>
                 <div>
                     <div class='form-group'>
                         <div class="row">
@@ -119,7 +125,7 @@ class ModalComponent extends React.PureComponent<> {
                             </div>
                             */}
                             <div class="col-sm-4">
-                                <button class="btn btn-md btn-primary form-control" onClick={this.handleAddVehicle}>ADD</button>
+                                <button disabled={this.state.isProcessing} class="btn btn-md btn-primary form-control" onClick={this.handleAddVehicle}>ADD</button>
                             </div>
                             <div className="col-sm-12" style={{padding:30}}>
                                 <div style={{backgroundColor:'gray',flexWrap: 'wrap', display: 'flex'}}>
