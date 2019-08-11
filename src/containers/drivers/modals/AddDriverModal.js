@@ -1,10 +1,12 @@
 import React from 'react';
+import { debounce } from 'lodash';
 import Modal from '../../../components/modal';
 
 class ModalComponent extends React.PureComponent<> {
     state = {
         email: '',
         password: '',
+        password2: '',
         firstName: '',
         lastName: '',
         birthDate: '',
@@ -12,9 +14,18 @@ class ModalComponent extends React.PureComponent<> {
         gender: 'male',
     }
 
-    handleAddDriver = () => {
+    handleAddDriver = debounce(() => {
+        const {
+            email,
+            password,
+            firstName,
+            lastName,
+            birthDate,
+            contactNumber,
+            gender,
+        } = this.state;
         this.props.onSubmit(this.state);
-    }
+    }, 500);
 
     render() {
         return (
@@ -34,7 +45,7 @@ class ModalComponent extends React.PureComponent<> {
                         </div>
                         <div className="col-sm-6">
                             <p>Confirm Password:</p>
-                            <input className="form-control" onChange={event => {}} type="password" />
+                            <input className="form-control" onChange={event => this.setState({ password2: event.target.value})} value={this.state.password2} type="password" />
                         </div>
                         <div className="col-sm-6">
                             <p>First Name:</p>

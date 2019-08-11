@@ -1,8 +1,10 @@
 import React from 'react';
+import { debounce } from 'lodash';
 import Modal from '../../../components/modal';
 
 class ModalComponent extends React.PureComponent<> {
     state = {
+        isProcessing: false,
         plateNumber: '',
         // seats: {
         //     'driver-seat' : {
@@ -97,13 +99,14 @@ class ModalComponent extends React.PureComponent<> {
         ],
     }
 
-    handleAddVehicle = () => {
+    handleAddVehicle = debounce(() => {
+        this.setState({isProcessing: true});
         const params = {
             plateNumber: this.state.plateNumber,
             seats: this.state.seats,
         };
         this.props.onSubmit(params);
-    }
+    }, 500);
 
     render() {
         // const seatKeys = Object.keys(this.state.seats);

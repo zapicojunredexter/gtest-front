@@ -1,4 +1,5 @@
 import React from 'react';
+import { debounce } from 'lodash';
 import Modal from '../../../components/modal';
 
 import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
@@ -39,7 +40,7 @@ class ModalComponent extends React.PureComponent<> {
         this.setState({[key]: place});
     }
 
-    handleAddRoute = () => {
+    handleAddRoute = debounce(() => {
         const params = {
             fromLat: this.state.fromLat,
             fromLng: this.state.fromLng,
@@ -48,7 +49,7 @@ class ModalComponent extends React.PureComponent<> {
             routeName: `${this.state.routeName1} - ${this.state.routeName2}`,
         };
         this.props.onSubmit(params);
-    }
+    }, 500);
 
     handleOnClick = (event, {lngLat}) => {
         const { lng, lat } = lngLat;

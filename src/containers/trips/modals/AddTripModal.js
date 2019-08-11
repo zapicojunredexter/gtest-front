@@ -1,4 +1,5 @@
 import React from 'react';
+import { debounce } from 'lodash';
 import Modal from '../../../components/modal';
 
 class ModalComponent extends React.PureComponent<> {
@@ -11,9 +12,9 @@ class ModalComponent extends React.PureComponent<> {
         price: null,
     };
 
-    handleAddTrip = () => {
+    handleAddTrip = debounce(() => {
         this.props.onSubmit(this.state);
-    }
+    }, 500);
 
     render() {
         return (

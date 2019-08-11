@@ -3,6 +3,9 @@ import RequestService from '../../services/request.service';
 import { responseToJson } from '../../utils/parsing.helpers';
 export default class Service {
     static addDriver = (params) => async dispatch => {
+        if(params.password !== params.password2){
+            throw new Error('Confirm passwor does not match password');
+        }
         const payload = {
             email: params.email,
             password: params.password,
