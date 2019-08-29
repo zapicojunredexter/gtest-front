@@ -116,24 +116,52 @@ class Container extends React.PureComponent<> {
   };
   render() {
     return (
-    <div class="row">
+    <div class="card">
+        <div class="row card-body">
+
+        <div class="col-sm-12" style={{paddingBottom: 50}}>
+            <h3 style={{textAlign: 'center'}}>ROUTES BOOKINGS COMPARISON</h3>
+        </div>
+        <div
+            class="col-md-3"
+            style={{
+                border: "0px solid silver",
+                overflow: "scroll",
+                height: 400,
+            }}
+            >
+            <div style={{ marginTop: "1em", height: 400, overflowY: "scroll" }}>
+                {this.props.routes.map(route => {
+                return (
+                    <>
+                    <input
+                        type="checkbox"
+                        style={{ marginBottom: ".5em" }}
+                        onClick={() => this.handleSelectRoute(route)}
+                    />{" "}
+                    {route.Route}
+                    <br />
+                    </>
+                );
+                })}
+            </div>
+        </div>
       <div
         class="col-md-9"
         style={{
           border: "0px solid silver",
-          overflow: "scroll",
-          height: "80vh"
+        //   overflow: "scroll",
         }}
       >
         <div
           style={{
             width: "100%",
-            height: "80%",
+            height: 400,
             overflow: "scroll"
           }}
         >
 
-        <ResponsiveContainer width={"100%"} height={200}>
+        <ResponsiveContainer width={"100%"} height={"100%"}>
           <LineChart
             data={this.state.chartData}
             margin={{
@@ -148,8 +176,11 @@ class Container extends React.PureComponent<> {
             <YAxis />
             <Tooltip
                 contentStyle={{
-                    width: '50vw',
+                    width: 300,
                     whiteSpace: 'wrap'
+                }}
+                wrapperStyle={{
+                    zIndex: 1000,
                 }}
             />
             {/*
@@ -168,29 +199,6 @@ class Container extends React.PureComponent<> {
           </LineChart>
           </ResponsiveContainer>
         </div>
-      </div>
-      <div
-        class="col-md-3"
-        style={{
-          border: "0px solid silver",
-          overflow: "scroll",
-          height: "80vh"
-        }}
-      >
-        <div style={{ marginTop: "1em", height: "75vh", overflowY: "scroll" }}>
-          {this.props.routes.map(route => {
-            return (
-              <>
-                <input
-                  type="checkbox"
-                  style={{ marginBottom: ".5em" }}
-                  onClick={() => this.handleSelectRoute(route)}
-                />{" "}
-                {route.Route}
-                <br />
-              </>
-            );
-          })}
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ export const getBookingsTableData = (state) => {
     const data = bookings.map(booking => {
         const commuter = commutersObject[booking.CommuterId];
         return {
+            id: booking.Id,
             commuter: commuter ? `${commuter.FirstName} ${commuter.LastName}` : booking.CommuterId,
             booked: `${new Date(booking.createdAt).toLocaleDateString()} ${new Date(booking.createdAt).toLocaleTimeString()}`,
             route: booking.Trip.Route.Route,

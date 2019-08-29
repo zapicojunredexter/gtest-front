@@ -24,6 +24,10 @@ class Container extends React.PureComponent<> {
             accessor: 'commuter',
         },
         {
+            Header: 'BOOKING ID',
+            accessor: 'id',
+        },
+        {
             Header: 'BOOKING DATE',
             accessor: 'booked',
         },

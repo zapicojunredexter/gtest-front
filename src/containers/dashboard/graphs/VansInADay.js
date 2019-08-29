@@ -65,16 +65,25 @@ class Container extends React.PureComponent<> {
     render() {
            
         return (
-            <div class="row">
+            <div class="row card">
                 <div
-                    class="col-md-12"
+                    class="col-md-12 card-body"
                     style={{
                         border: "0px solid silver",
-                        overflow: "scroll",
-                        height: "80vh"
+                        // overflow: "scroll",
+                        height: 300
                     }}
                 >
-                    <input type="date" onChange={(ev) => this.generateGraph((ev.target.value))} value={this.datify(this.state.selectedDate)} />
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3 style={{textAlign: 'center'}}>VEHICLE USAGE REPORT</h3>
+                        </div>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="date" onChange={(ev) => this.generateGraph((ev.target.value))} value={this.datify(this.state.selectedDate)} />
+                        </div>
+                    </div>
+                    <br />
                     {this.state.chartData.length > 0 ? (
                         <ResponsiveContainer width={"100%"} height={200}>
                             <BarChart data={this.state.chartData}>
@@ -83,15 +92,27 @@ class Container extends React.PureComponent<> {
                                 <YAxis />
                                 <Tooltip
                                     contentStyle={{
-                                        width: '50vw',
+                                        width: 200,
                                         whiteSpace: 'wrap'
+                                    }}
+                                    wrapperStyle={{
+                                        zIndex: 1000,
                                     }}
                                 />
                                 <Bar dataKey="count" fill="#8884d8" />
                             </BarChart>
                         </ResponsiveContainer>
                     ) : (
-                        <div>NO DATE SELECTED</div>
+                        <div style={{
+                            height: '70%',
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+
+                        }}>
+                            <h3 style={{color: '#d43939'}}>NO DATE SELECTED</h3>
+                        </div>
                     )}     
               </div>
             </div>

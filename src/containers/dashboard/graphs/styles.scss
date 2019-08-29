@@ -1,0 +1,14 @@
+.react-table-wrapper {
+    display: flex;
+    .ReactTable{
+        flex: 1;
+        width: 0;
+    }
+}
+.rt-noData {
+    background: none !important;
+}
+
+.rt-thead {
+    font-weight: bold;
+}

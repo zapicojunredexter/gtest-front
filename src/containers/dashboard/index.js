@@ -111,7 +111,20 @@ class Container extends React.PureComponent<> {
                         </div>
                     </div>
 
-                    <Sales />
+                    <div className="row">
+                        <div className="col-sm-12">
+                            <Sales />
+                        </div>
+                        <div className="col-sm-12">
+                            <RoutesTripsInADay />
+                        </div>
+                        <div className="col-sm-12">
+                            <VansInADay />
+                        </div>
+                        <div className="col-sm-12">
+                            <TripsPerDays />
+                        </div>
+                    </div>
                     {/*
                     <TripsPerDays />
                     */}
