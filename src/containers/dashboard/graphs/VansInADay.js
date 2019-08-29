@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    Bar, BarChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+    Bar, BarChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   } from 'recharts';
 import './styles.scss';
 
@@ -76,13 +76,20 @@ class Container extends React.PureComponent<> {
                 >
                     <input type="date" onChange={(ev) => this.generateGraph((ev.target.value))} value={this.datify(this.state.selectedDate)} />
                     {this.state.chartData.length > 0 ? (
-                        <BarChart width={730} height={250} data={this.state.chartData}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <Tooltip />
-                            <Bar dataKey="count" fill="#8884d8" />
-                        </BarChart>
+                        <ResponsiveContainer width={"100%"} height={200}>
+                            <BarChart data={this.state.chartData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip
+                                    contentStyle={{
+                                        width: '50vw',
+                                        whiteSpace: 'wrap'
+                                    }}
+                                />
+                                <Bar dataKey="count" fill="#8884d8" />
+                            </BarChart>
+                        </ResponsiveContainer>
                     ) : (
                         <div>NO DATE SELECTED</div>
                     )}     

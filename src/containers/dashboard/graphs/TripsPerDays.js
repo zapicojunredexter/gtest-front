@@ -8,7 +8,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  ResponsiveContainer
 } from "recharts";
 import "./styles.scss";
 
@@ -132,9 +132,9 @@ class Container extends React.PureComponent<> {
             overflow: "scroll"
           }}
         >
+
+        <ResponsiveContainer width={"100%"} height={200}>
           <LineChart
-            width={800}
-            height={300}
             data={this.state.chartData}
             margin={{
               top: 5,
@@ -146,12 +146,16 @@ class Container extends React.PureComponent<> {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
-            <Tooltip />
+            <Tooltip
+                contentStyle={{
+                    width: '50vw',
+                    whiteSpace: 'wrap'
+                }}
+            />
             {/*
                     <Legend />
                     */}
             {this.props.routes.map((route, index) => {
-              console.log("buhu", STATIC_COLORS[index]);
               return (
                 <Line
                   type="monotone"
@@ -162,6 +166,7 @@ class Container extends React.PureComponent<> {
               );
             })}
           </LineChart>
+          </ResponsiveContainer>
         </div>
       </div>
       <div

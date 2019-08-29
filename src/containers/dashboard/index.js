@@ -111,7 +111,7 @@ class Container extends React.PureComponent<> {
                         </div>
                     </div>
 
-                    <VansInADay />
+                    <Sales />
                     {/*
                     <TripsPerDays />
                     */}
