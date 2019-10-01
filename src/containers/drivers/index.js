@@ -67,6 +67,10 @@ const columns = [
         
     },
     {
+        Header: 'TOTAL EARNINGS',
+        accessor: 'earned',
+    },
+    {
         Header: 'CONTACT NUMBER',
         accessor: 'contactNumber',
     },

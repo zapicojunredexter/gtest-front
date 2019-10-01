@@ -8,6 +8,7 @@ import Table from '../../components/tables/Basic';
 
 import AddTripModal from './modals/AddTripModal';
 import EditTripModal from './modals/EditTripModal';
+import ViewPassengersModal from './modals/ViewPassengersModal';
 import { showAlert, confirmAlert } from '../../utils/alert';
 
 import './styles.scss';
@@ -16,6 +17,7 @@ class Container extends React.PureComponent<> {
     state = {
         isAddModalOpen: false,
         toEdit: null,
+        viewBookings: null,
     };
 
     columns = [
@@ -66,8 +68,8 @@ class Container extends React.PureComponent<> {
             accessor: 'status',
 
             Cell: ({original}) => (
-                <span className={`badge btn-${this.getStatusClass(original.status)}`}>
-                    {original.status}
+                <span className={`badge btn-${this.getStatusClass(original.status).class}`}>
+                    {this.getStatusClass(original.status).label}
                 </span>
             ),
             width: 100,
@@ -81,6 +83,7 @@ class Container extends React.PureComponent<> {
                 <span class="trip-edit-cancel-btn">
                   <button onClick={() => this.handleClickEdit(original)} class="btn btn-md btn-warning"><i class="fa fa-pencil"></i></button>
                   <button onClick={() => this.handleCancel(original.id)} class="btn btn-md btn-danger"><i class="fa fa-times"></i></button>
+                  <button onClick={() => this.handleClickViewBooking(original)} class="btn btn-md btn-primary"><i class="fa fa-list-alt"></i></button>
                 </span>
             ),
             filterable: false,
@@ -94,15 +97,30 @@ class Container extends React.PureComponent<> {
     getStatusClass = status => {
         switch(status){
             case 'Waiting':
-                return 'primary';
+                return {
+                    label: 'Waiting',
+                    class: 'primary'
+                };
             case 'Travelling':
-                return 'success';
+                return {
+                    label: 'Travelling',
+                    class: 'success'
+                };
             case 'Cancelled':
-                return 'danger';
+                return {
+                    label: 'Cancelled',
+                    class: 'danger'
+                };
             case 'Finished':
-                return 'warning';
+                return {
+                    label: 'Arrived',
+                    class: 'warning'
+                };
             default:
-                return 'info';
+                return {
+                    label: status,
+                    class: 'info'
+                };
         }
     }
 
@@ -127,6 +145,11 @@ class Container extends React.PureComponent<> {
 
     handleClickEdit = trip => {
         this.setState({toEdit: trip});
+    }
+
+
+    handleClickViewBooking = trip => {
+        this.setState({viewBookings: trip});
     }
 
     handleEditTrip = driver => {
@@ -168,6 +191,11 @@ class Container extends React.PureComponent<> {
                     drivers={this.props.drivers}
                     onSubmit={this.handleEditTrip}
                     {...this.state.toEdit}
+                />
+                <ViewPassengersModal
+                    viewBookings={this.state.viewBookings}
+                    onClose={() => this.setState({viewBookings: null})}
+
                 />
                 {/*
                 src/containers/trips/index.js
